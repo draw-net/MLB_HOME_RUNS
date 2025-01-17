@@ -6,33 +6,66 @@ error_reporting(E_ALL);
 
 include 'modulo.php';
 
-/*
-try {
-    $conn = new mysqli($servidor, $usuario, $senha, $dbname);
-    if ($conn->connect_error) {
-        die("Erro de conexão: " . $conn->connect_error);
-    }
-} catch (Exception $e) {
-    die("Erro de conexão: " . $e->getMessage());
-}
+
 
 $caminhoArquivo = 'home_runs.csv';
 $nomeTabela = 'HomeRuns';
 
-$sqlImport = "LOAD DATA LOCAL INFILE '" . $caminhoArquivo . "' INTO TABLE " . $nomeTabela . "
-FIELDS TERMINATED BY ','
-ENCLOSED BY '\"'
-LINES TERMINATED BY '\\n'
-IGNORE 1 ROWS";
+function importCsv($servidor, $usuario, $senha, $dbname, $caminhoArquivo, $nomeTabela) {
 
-if ($conn->query($sqlImport) === TRUE) {
-    echo "CSV importado com sucesso!";
-} else {
-    echo "Erro ao importar CSV: " . $conn->error;
+    try {
+         $conn = new mysqli($servidor, $usuario, $senha, $dbname);
+         if ($conn->connect_error) {
+             die("Erro de conexão: " . $conn->connect_error);
+         }
+     } catch (Exception $e) {
+         die("Erro de conexão: " . $e->getMessage());
+     }
+   
+    if (($handle = fopen($caminhoArquivo, "r")) !== FALSE) {
+         fgetcsv($handle); // Ignorar a primeira linha (cabeçalho)
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+             var_dump($data);
+             $sql = "INSERT INTO $nomeTabela (game_date, nome, hit_distance, exit_velocity, launch_angle, link_video) VALUES (?, ?, ?, ?, ?, ?)";
+            
+            $stmt = $conn->prepare($sql);
+
+            if ($stmt === false) {
+                echo "Erro na preparação da query: ".$conn->error;
+                return false;
+            }
+            
+             $date = DateTime::createFromFormat('m/d/Y', $data[0]);
+            if($date)
+                 $dateFormatted = $date->format('Y-m-d');
+             else
+                 $dateFormatted = null;
+                
+            $stmt->bind_param("ssdsss", $dateFormatted, $data[1], $data[2], $data[3], $data[4], $data[5]);
+        
+            if($stmt->execute() === FALSE)
+             {
+                 var_dump($stmt->error); // verificar erros na execução da query
+                  echo "Erro ao executar query: ".$stmt->error;
+                return false;
+            }
+           $stmt->close();
+        }
+        fclose($handle);
+        $conn->close();
+        return true;
+    } else {
+        echo "Erro ao abrir o arquivo CSV.";
+        return false;
+    }
+    
 }
 
-$conn->close();
-*/
+
+if(importCsv($servidor, $usuario, $senha, $dbname, $caminhoArquivo, $nomeTabela))
+    echo "CSV importado com sucesso utilizando método alternativo!";
+else
+     echo "Erro ao importar CSV utilizando método alternativo!";
 
 // 3. Função para buscar home runs (será chamada pelo JavaScript)
 function buscarHomeRun($conn, $nomeJogador) {
