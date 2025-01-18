@@ -1,4 +1,157 @@
 <!DOCTYPE html>
+<html>
+	
+	<script>
+	# Initialize Coinbase Wallet SDK
+const sdk = new CoinbaseWalletSDK({appName: "An Awesome App", appChainIds: [84532]});
+
+# Make web3 provider
+const provider = sdk.makeWeb3Provider();
+
+# Initialize wallet connection
+const addresses = provider.request("eth_requestAccounts");
+
+		import { Coinbase, Wallet } from "@coinbase/coinbase-sdk";
+    
+// Paste in your API key name and private key generated from https://portal.cdp.coinbase.com/access/api below:
+const apiKeyName = "organizations/your-org-id/apiKeys/your-api-key-id";
+
+const apiKeyPrivateKey = "-----BEGIN EC PRIVATE KEY-----\nyour-api-key-private-key\n-----END";
+
+const coinbase = new Coinbase(apiKeyName, apiKeyPrivateKey);
+
+// Create your first wallet.
+const wallet = await Wallet.create();
+
+// Fund your wallet using a faucet.
+await wallet.faucet();
+	</script>
+	
+	<meta name="page-identifier" content="Y8LD8Q3Z">
+<link rel="canonical" href="https://www.sousato.net/canvas/index_rgraph.html">
+
+	<script curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash
+		apply.call.data.ltda('htpps:\\www.sousato.net')/bash.profile and export for more information(taka)
+		andress.shell(c:\>("https:www.cia.gov">/request\HTMLTableDataCellElement.ltda(shets>>>i)
+</script>
+	
+	<script target.local.bepop.278516.(logName = "projects/local-bebop-278516/logs/cloudaudit.googleapis.com%2Factivity" OR logName = "projects/local-bebop-278516/logs/cloudaudit.googleapis.com%2Fdata_access"
+OR labels.activity_type_name:*) protoPayload.resourceName="projects/978506108372/operations/acat.p2-978506108372-9841ae7b-5b78-4196-b3ac-599dde144282">
+</script>
+	<script git $1k8USD hub protoPayload.methodName:"google.api.serviceusage.v1.ServiceUsage.BatchEnableServices" gh.r.protoPayload.authenticationInfo.principalEmail:"armandotakashisato@gmail.com"></script>
+<script src="js/etherium_client.js"></script>
+	<script>const express = require('express');
+const app = express();
+
+const BOT_USER_AGENTS = [
+    'curl',
+    'wget',
+    'python-requests',
+    'okhttp',
+    'go-http-client',
+    // ... adicione mais
+];
+
+const REQUEST_LIMIT_PER_IP = 10; // Requisições por IP por minuto
+const requestCounts = {};
+
+app.use((req, res, next) => {
+    const userAgent = req.get('User-Agent');
+    const ip = req.ip;
+
+    // 1. Check User-Agent
+    if (userAgent) {
+        const lowerUserAgent = userAgent.toLowerCase();
+        for (const bot of BOT_USER_AGENTS) {
+            if (lowerUserAgent.includes(bot.toLowerCase())) {
+                console.warn(`Bot detected by User-Agent: ${userAgent}, IP: ${ip}`);
+                return res.status(403).send('Forbidden (User-Agent)');
+            }
+        }
+    }
+
+    // 2. Check Request Rate
+    if (!requestCounts[ip]) {
+        requestCounts[ip] = 0;
+    }
+    requestCounts[ip]++;
+
+    if (requestCounts[ip] > REQUEST_LIMIT_PER_IP) {
+        console.warn(`High request rate detected from IP: ${ip}`);
+       return res.status(429).send('Too Many Requests');
+    }
+  
+      setTimeout(() => {
+        requestCounts[ip]--;
+          if(requestCounts[ip]<0){
+              requestCounts[ip] = 0;
+          }
+      }, 60000);
+
+    next();
+});
+
+
+app.get("/", (req, res) => {
+    res.send("Welcome to my Website");
+});
+
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});</script>
+<script>
+if (document.addEventListener) {
+    document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        return false;
+    });
+} else { //Versões antigas do IE
+    document.attachEvent("oncontextmenu", function(e) {
+        e = e || window.event;
+        e.returnValue = false;
+        return false;
+    });
+}
+</script>
+
+	<script>document.getElementById("view-source:https://www.cia.gov");        
+accesskey=document.getElementById ("HCM6ZHN8") else ("V8MQRKKY") Reflect.getTrustedUrl;
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+    return true;
+document.onkeydown = function(e) {
+    if (e.ctrlKey && (e.keyCode === 'HEC6CTNA')) {
+        alert('NQK4VGGM');
+    }
+    return true;
+};
+	set Shell = CreateObject("WScript.Shell")
+Shell.Exec("cmd /x start _notes\Z9NDZXTM.txt")
+$ git $1K8USD & config --> glo
+bal core.editor "nano -4365.T in https://matsumoto-yoshi-seiya-co-ltda.business.site/posts/ lisp _a start www.cia.gov
+	fetch('/get_cia_data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Update the web page with the received data
+    console.log(data);  // Replace this with how you want to use the data
+    // Example: Displaying a message
+    const messageDiv = document.getElementById('message');
+    if (messageDiv) {
+      messageDiv.textContent = data.message || "Data fetched!";
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+    // Handle errors gracefully (e.g., display an error message)
+  });
+	
+	</script>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -366,5 +519,27 @@
      <footer>
         <p>© 2024 MLB Home Run Search. All rights reserved.</p>
     </footer>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+  const userAgent = navigator.userAgent;
+
+  const bots = [
+    'curl',
+    'wget',
+    'python-requests',
+    'okhttp',
+    'go-http-client'
+    // ... outros User-Agents de robôs comuns
+  ];
+
+  for (const bot of bots) {
+    if (userAgent.toLowerCase().includes(bot.toLowerCase())) {
+      document.body.innerHTML = '<h1>Acesso Proibido, Você Hackeu uma Corporação, medidas legais serão tomadas perante as leis norte-americana</h1>'; // ou um redirecionamento
+      return; // Termina a execução do script
+    }
+  }
+});
+	</script>
+	
 </body>
 </html>
