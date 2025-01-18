@@ -2,14 +2,34 @@ const express = require('express');
 const fetch = require('node-fetch');
 const ffmpeg = require('fluent-ffmpeg');
 const cv = require('opencv4nodejs');
-
+const cors = require('cors');
 
 const app = express();
 const PORT = 3001;
 
-
+app.use(cors());
 app.use(express.json());
 
+app.get('/get-home-runs', async (req, res) => {
+    const nomeJogador = req.query.nome;
+    if (!nomeJogador) {
+        return res.status(400).json({ error: 'O parâmetro nome do jogador é obrigatório.' });
+    }
+
+    try {
+       const response = await fetch(`https://www.sousatonet/mlb/index.php?nome=${encodeURIComponent(nomeJogador)}`);
+       if (!response.ok) {
+           throw new Error(`Erro ao buscar os home runs, ${response.status}, ${response.statusText}`);
+       }
+
+       const data = await response.json();
+       res.json(data);
+    } catch(error) {
+         console.error('Erro ao buscar home runs:', error);
+         res.status(500).json({ error: 'Erro ao buscar home runs.' });
+     }
+
+});
 
 app.post('/analyze-video', async (req, res) => {
     const { videoUrl } = req.body;
