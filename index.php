@@ -7,7 +7,7 @@
 	<link rel="icon" href="mlb_png.png" type="image/png">
 	
     <style>
-       /* Estilo da barra de navegação (similar ao seu código original) */
+        /* Estilo da barra de navegação (similar ao seu código original) */
         nav {
             background-color: #041e42;
             overflow: hidden;
@@ -24,15 +24,6 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
-		  footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 0.8em;
-            color: #777;
-           border-top: 1px solid #ddd;
-             margin-top: auto;
-        }
-		
         nav a:hover {
             background-color: #223f5e;
         }
@@ -122,17 +113,14 @@
                 background-color: #f2f2f2;
             }
         #busca {
-            margin: 20px auto;
-            width: 800px;
-            display: flex;
-             flex-direction: column;
-            align-items: center;
+             margin: 20px auto;
+             width: 800px;
              text-align: center;
          }
          #busca > div {
              display: flex;
-             width: 100%;
-              justify-content: center;
+              width: 100%;
+               justify-content: center;
              gap: 10px;
          }
          #busca input,
@@ -143,14 +131,22 @@
                border: 1px solid #ccc;
               font-size: 1em;
          }
-       #busca p {
-          font-size: 0.9em;
+        #busca p {
+            font-size: 0.9em;
             color: #666;
             margin-top: 10px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 400px;
+           white-space: nowrap;
+            overflow: hidden;
+           text-overflow: ellipsis;
+            max-width: 400px;
+         }
+         footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8em;
+            color: #777;
+            border-top: 1px solid #ddd;
+             margin-top: auto;
         }
     </style>
 </head>
@@ -166,7 +162,7 @@
         <a href="https://www.mlb.com/TICKETS">TICKETS</a>
         <a href="https://www.mlb.com/SHOP">SHOP</a>
         <a href="https://www.mlb.com/TEAMS">TEAMS</a>
-         <a href="https://www.sousatonet/mlb/index.php">HOME RUN</a>
+        <a href="https://www.sousatonet/mlb/index.php">HOME RUN</a>
     </nav>
 
      <div id="video-container">
@@ -182,7 +178,7 @@
              <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
              <button onclick="searchHomeRuns()">Buscar</button>
          </div>
-       
+   
     </div>
 
     <div id="resultado"></div>
@@ -208,8 +204,7 @@
             document.getElementById('video-container').style.display = 'none';
               document.getElementById('dados-homerun').innerHTML = '';
 
-
-            fetch(`http://localhost:3001/get-home-runs?nome=${encodeURIComponent(playerName)}`)
+            fetch(`http://localhost:3001/get-mlb-home-runs?nome=${encodeURIComponent(playerName)}`)
                 .then(response => response.json())
                 .then(data => {
                 resultsDiv.innerHTML = '';
@@ -260,7 +255,7 @@
                             angleCell.style.border = '1px solid black';
                             angleCell.style.padding = '8px';
 
-                            const viewCell = row.insertCell();
+                             const viewCell = row.insertCell();
                             const viewButton = document.createElement('button');
                             viewButton.textContent = 'Visualizar';
                             viewButton.onclick = () => visualizeTrajectory(hr.id, hr.hit_distance, hr.exit_velocity, hr.launch_angle);
@@ -273,7 +268,7 @@
                             videoButton.textContent = 'Video';
                             videoButton.onclick = () => exibirHomeRun(hr);
                             videoCell.appendChild(videoButton);
-                             videoCell.style.border = '1px solid black';
+                            videoCell.style.border = '1px solid black';
                             videoCell.style.padding = '8px';
                         });
 
@@ -296,7 +291,6 @@
               return Math.min(deformation, maxDeformation);
            }
 
-
           function visualizeTrajectory(homeRunID, distance, exitVelocity, launchAngle) {
             document.getElementById('canvas-container').style.display = 'flex';
             const canvas = document.getElementById('trajectoryCanvas');
@@ -305,8 +299,7 @@
              let x = 0;
              let y = canvas.height;
              let tempo = 0;
-                const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
-
+            const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
 
              if (currentAnimationId) {
                cancelAnimationFrame(currentAnimationId);
@@ -340,7 +333,7 @@
                           }
                          animate();
           }
-        function exibirHomeRun(dados) {
+          function exibirHomeRun(dados) {
             document.getElementById('video-container').style.display = 'block';
             document.getElementById('video-source').src = dados.link_video;
 
@@ -349,18 +342,17 @@
                 method: 'POST',
                  headers: {
                       'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ videoUrl: dados.link_video }),
-              })
+                    },
+                   body: JSON.stringify({ videoUrl: dados.link_video }),
+             })
               .then(response => response.json())
-              .then(data => {
-                     document.getElementById('resultado').textContent = `Volume da bola: ${data.volume.toFixed(4)} metros cúbicos`;
-                })
-                 .catch(error => {
+                .then(data => {
+                    document.getElementById('resultado').textContent = `Volume da bola: ${data.volume.toFixed(4)} metros cúbicos`;
+               })
+               .catch(error => {
                     console.error('Erro ao calcular volume:', error);
-                    document.getElementById('resultado').textContent = `Erro ao calcular volume.`;
-                });
-
+                   document.getElementById('resultado').textContent = `Erro ao calcular volume.`;
+               });
              // Exibir dados do home run abaixo do vídeo
              const dadosHomerunDiv = document.getElementById('dados-homerun');
              dadosHomerunDiv.innerHTML = `
@@ -368,11 +360,10 @@
                  <p>Exit Velocity: ${dados.exit_velocity}</p>
                  <p>Hit Distance: ${dados.hit_distance}</p>
                  <p>Launch Angle: ${dados.launch_angle}</p>
-            `;
-        }
-
+              `;
+            }
     </script>
-	    <footer>
+     <footer>
         <p>© 2024 MLB Home Run Search. All rights reserved.</p>
     </footer>
 </body>
