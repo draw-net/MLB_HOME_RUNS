@@ -127,7 +127,7 @@
         <a href="https://www.mlb.com/TICKETS">TICKETS</a>
         <a href="https://www.mlb.com/SHOP">SHOP</a>
         <a href="https://www.mlb.com/TEAMS">TEAMS</a>
-        <a href="https://www.sousatonet/mlb/index.php">HOME RUN</a>
+         <a href="https://www.sousatonet/mlb/index.php">HOME RUN</a>
     </nav>
 
      <div id="video-container">
@@ -139,11 +139,9 @@
     </div>
 
     <div id="busca">
-         <div >
-             <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
-             <button onclick="searchHomeRuns()">Buscar</button>
-         </div>
-       <p style="font-size: 0.9em; color: #666; margin-top: 10px;">MLB Home Run's Search</p>
+         <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
+         <button onclick="searchHomeRuns()">Buscar</button>
+      <p style="font-size: 0.9em; color: #666; margin-top: 10px;">MLB Home Run's Search</p>
     </div>
 
     <div id="resultado"></div>
@@ -166,9 +164,11 @@
             const playerName = document.getElementById('nome-jogador').value;
             const resultsDiv = document.getElementById('resultado');
             resultsDiv.innerHTML = '<p>Carregando...</p>';
+            document.getElementById('video-container').style.display = 'none';
+              document.getElementById('dados-homerun').innerHTML = '';
 
 
-            fetch(`index.php?nome=${encodeURIComponent(playerName)}`)
+            fetch(`http://localhost:3001/get-home-runs?nome=${encodeURIComponent(playerName)}`)
                 .then(response => response.json())
                 .then(data => {
                 resultsDiv.innerHTML = '';
@@ -226,14 +226,15 @@
                             viewCell.appendChild(viewButton);
                             viewCell.style.border = '1px solid black';
                             viewCell.style.padding = '8px';
-                           
-                            const videoCell = row.insertCell();
+
+                           const videoCell = row.insertCell();
                             const videoButton = document.createElement('button');
                             videoButton.textContent = 'Video';
                             videoButton.onclick = () => exibirHomeRun(hr);
                             videoCell.appendChild(videoButton);
-                            videoCell.style.border = '1px solid black';
+                             videoCell.style.border = '1px solid black';
                             videoCell.style.padding = '8px';
+
                         });
 
                         resultsDiv.appendChild(table);
@@ -264,27 +265,27 @@
              let x = 0;
              let y = canvas.height;
              let tempo = 0;
-                const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
+             const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
 
 
              if (currentAnimationId) {
                cancelAnimationFrame(currentAnimationId);
              }
-             let initialSpeedX = exitVelocity * Math.cos(launchAngle * (Math.PI / 180));
-             let initialSpeedY = -exitVelocity * Math.sin(launchAngle * (Math.PI / 180));
+            let initialSpeedX = exitVelocity * Math.cos(launchAngle * (Math.PI / 180));
+            let initialSpeedY = -exitVelocity * Math.sin(launchAngle * (Math.PI / 180));
                         function animate() {
 
                                   ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpar o canvas
 
                                     x =  initialSpeedX * tempo;
-                                     y = canvas.height - (initialSpeedY * tempo + 0.5 * 9.8 * tempo * tempo);
+                                   y = canvas.height - (initialSpeedY * tempo + 0.5 * 9.8 * tempo * tempo);
                                    
                                     // Desenhar a bola deformada
                                    ctx.beginPath();
                                    const deformedRaioY = raio * 10 * (1 + deformation/20);
-                                   ctx.ellipse(x, y, raio * 10, deformedRaioY, 0, 0, 2 * Math.PI);
+                                    ctx.ellipse(x, y, raio * 10, deformedRaioY, 0, 0, 2 * Math.PI);
                                    ctx.fillStyle = 'red';
-                                   ctx.fill();
+                                     ctx.fill();
 
                                    
                                   tempo += 0.05; // Incrementar o tempo
@@ -300,33 +301,34 @@
                          animate();
           }
         function exibirHomeRun(dados) {
-           document.getElementById('video-container').style.display = 'block';
-           document.getElementById('video-source').src = dados.link_video;
-                // Envia a URL do video para o Nodejs
+            document.getElementById('video-container').style.display = 'block';
+            document.getElementById('video-source').src = dados.link_video;
+               // Envia a URL do video para o Nodejs
               fetch('http://localhost:3001/analyze-video', {
-                  method: 'POST',
+                method: 'POST',
                    headers: {
                       'Content-Type': 'application/json',
-                     },
-                 body: JSON.stringify({ videoUrl: dados.link_video }),
-            })
-           .then(response => response.json())
-            .then(data => {
-                   document.getElementById('resultado').textContent = `Volume da bola: ${data.volume.toFixed(4)} metros cúbicos`;
-            })
-               .catch(error => {
+                    },
+                   body: JSON.stringify({ videoUrl: dados.link_video }),
+              })
+               .then(response => response.json())
+              .then(data => {
+                     document.getElementById('resultado').textContent = `Volume da bola: ${data.volume.toFixed(4)} metros cúbicos`;
+               })
+                  .catch(error => {
                    console.error('Erro ao calcular volume:', error);
-                  document.getElementById('resultado').textContent = `Erro ao calcular volume.`;
+                   document.getElementById('resultado').textContent = `Erro ao calcular volume.`;
                 });
+
              // Exibir dados do home run abaixo do vídeo
-           const dadosHomerunDiv = document.getElementById('dados-homerun');
-           dadosHomerunDiv.innerHTML = `
-               <p>Nome: ${dados.nome}</p>
-               <p>Exit Velocity: ${dados.exit_velocity}</p>
-               <p>Hit Distance: ${dados.hit_distance}</p>
-               <p>Launch Angle: ${dados.launch_angle}</p>
-            `;
-         }
+             const dadosHomerunDiv = document.getElementById('dados-homerun');
+             dadosHomerunDiv.innerHTML = `
+                 <p>Nome: ${dados.nome}</p>
+                 <p>Exit Velocity: ${dados.exit_velocity}</p>
+                 <p>Hit Distance: ${dados.hit_distance}</p>
+                 <p>Launch Angle: ${dados.launch_angle}</p>
+              `;
+            }
     </script>
 </body>
 </html>
