@@ -10,20 +10,48 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-app.get('/get-home-runs', async (req, res) => {
+app.get('/get-mlb-home-runs', async (req, res) => {
     const nomeJogador = req.query.nome;
     if (!nomeJogador) {
         return res.status(400).json({ error: 'O parâmetro nome do jogador é obrigatório.' });
     }
 
     try {
-       const response = await fetch(`https://www.sousatonet/mlb/index.php?nome=${encodeURIComponent(nomeJogador)}`);
-       if (!response.ok) {
-           throw new Error(`Erro ao buscar os home runs, ${response.status}, ${response.statusText}`);
-       }
+       const response = await fetch(`https://www.mlb.com/player/${encodeURIComponent(nomeJogador)}/`);
+         if (!response.ok) {
+              throw new Error(`Erro ao obter página do jogador, código ${response.status}, ${response.statusText}`);
+         }
+       const text = await response.text()
+       const regex = /<script id="__NEXT_DATA__" type="application\/json">(.*?)<\/script>/s;
+       const match = text.match(regex);
+        if (!match) {
+            throw new Error("Não foi possível extrair os dados do jogador");
+        }
+      const jsonString = match[1];
+       const jsonData = JSON.parse(jsonString);
+       const playerId = jsonData.props.pageProps.player.id;
+      const response2 = await fetch(`https://statsapi.mlb.com/api/v1/sports/1/players/${playerId}/homeruns?season=2023&group=hitting&gameType=R`);
+        if (!response2.ok) {
+              throw new Error(`Erro ao obter os dados do jogador, código ${response2.status}, ${response2.statusText}`);
+         }
 
-       const data = await response.json();
-       res.json(data);
+         const data = await response2.json();
+         const homeRuns = data.homeRuns;
+         const extractedHomeRuns = [];
+
+         for (const hr of homeRuns) {
+             extractedHomeRuns.push({
+                 id: hr.id,
+                 game_date: hr.gameDate,
+                 nome: hr.playerName,
+                 hit_distance: hr.hitDistance,
+                 exit_velocity: hr.exitVelocity,
+                 launch_angle: hr.launchAngle,
+                 link_video: hr.playbacks[0].url,
+             });
+         }
+
+       res.json(extractedHomeRuns);
     } catch(error) {
          console.error('Erro ao buscar home runs:', error);
          res.status(500).json({ error: 'Erro ao buscar home runs.' });
