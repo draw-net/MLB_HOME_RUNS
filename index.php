@@ -1,143 +1,11 @@
-<?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-include 'modulo.php';
-
-
-
-$caminhoArquivo = 'home_runs.csv';
-$nomeTabela = 'HomeRuns';
-
-function importCsv($servidor, $usuario, $senha, $dbname, $caminhoArquivo, $nomeTabela) {
-
-    try {
-         $conn = new mysqli($servidor, $usuario, $senha, $dbname);
-         if ($conn->connect_error) {
-             die("Erro de conexão: " . $conn->connect_error);
-         }
-     } catch (Exception $e) {
-         die("Erro de conexão: " . $e->getMessage());
-     }
-   
-    if (($handle = fopen($caminhoArquivo, "r")) !== FALSE) {
-         fgetcsv($handle); // Ignorar a primeira linha (cabeçalho)
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-             var_dump($data);
-             $sql = "INSERT INTO $nomeTabela (game_date, nome, hit_distance, exit_velocity, launch_angle, link_video) VALUES (?, ?, ?, ?, ?, ?)";
-            
-            $stmt = $conn->prepare($sql);
-
-            if ($stmt === false) {
-                echo "Erro na preparação da query: ".$conn->error;
-                return false;
-            }
-            
-             $date = DateTime::createFromFormat('m/d/Y', $data[0]);
-            if($date)
-                 $dateFormatted = $date->format('Y-m-d');
-             else
-                 $dateFormatted = null;
-                
-            $stmt->bind_param("ssdsss", $dateFormatted, $data[1], $data[2], $data[3], $data[4], $data[5]);
-        
-            if($stmt->execute() === FALSE)
-             {
-                 var_dump($stmt->error); // verificar erros na execução da query
-                  echo "Erro ao executar query: ".$stmt->error;
-                return false;
-            }
-           $stmt->close();
-        }
-        fclose($handle);
-        $conn->close();
-        return true;
-    } else {
-        echo "Erro ao abrir o arquivo CSV.";
-        return false;
-    }
-    
-}
-
-
-if(importCsv($servidor, $usuario, $senha, $dbname, $caminhoArquivo, $nomeTabela))
-    echo "CSV importado com sucesso utilizando método alternativo!";
-else
-     echo "Erro ao importar CSV utilizando método alternativo!";
-
-// 3. Função para buscar home runs (será chamada pelo JavaScript)
-function buscarHomeRun($conn, $nomeJogador) {
-    $sql = "SELECT id, game_date, nome, hit_distance, exit_velocity, launch_angle, link_video FROM HomeRuns WHERE nome LIKE ? ORDER BY hit_distance DESC, exit_velocity DESC LIMIT 5";
-    $stmt = $conn->prepare($sql);
-    $nome_like = "%" . $nomeJogador . "%";
-    $stmt->bind_param("s", $nome_like);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    $homeRuns = [];
-    while ($row = $resultado->fetch_assoc()) {
-        $homeRuns[] = $row;
-    }
-    $stmt->close();
-    return $homeRuns;
-}
-
-// 4. Função para buscar home runs por ID para trajetoria (será chamada pelo JavaScript)
-function buscarHomeRunPorID($conn, $homeRunID) {
-    $sql = "SELECT hit_distance, exit_velocity, launch_angle FROM HomeRuns WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $homeRunID);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    $homeRun = $resultado->fetch_assoc();
-    $stmt->close();
-    return $homeRun;
-}
-
-// 5. Configurar cabeçalhos para requisições AJAX
-header('Content-Type: application/json');
-
-// 6. Verificar se a solicitação é para buscar home runs ou trajetória
-if (isset($_GET['nome'])) {
-    try {
-        $conn = new mysqli($servidor, $usuario, $senha, $dbname);
-        if ($conn->connect_error) {
-            die(json_encode(["error" => "Erro de conexão: " . $conn->connect_error]));
-        }
-
-        $nomeJogador = $_GET['nome'];
-        $homeRuns = buscarHomeRun($conn, $nomeJogador);
-        echo json_encode($homeRuns);
-        $conn->close();
-    } catch (Exception $e) {
-        die(json_encode(["error" => "Erro ao buscar home runs: " . $e->getMessage()]));
-    }
-} else if (isset($_GET['homeRunID'])) {
-    try {
-         $conn = new mysqli($servidor, $usuario, $senha, $dbname);
-        if ($conn->connect_error) {
-            die(json_encode(["error" => "Erro de conexão: " . $conn->connect_error]));
-        }
-        $homeRunID = $_GET['homeRunID'];
-        $homeRun = buscarHomeRunPorID($conn, $homeRunID);
-        echo json_encode($homeRun);
-        $conn->close();
-    } catch (Exception $e) {
-        die(json_encode(["error" => "Erro ao buscar trajetória: " . $e->getMessage()]));
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLB Home Run Search</title>
     <style>
-        /* Estilo da barra de navegação (similar ao seu código original) */
+       /* Estilo da barra de navegação (similar ao seu código original) */
         nav {
             background-color: #041e42;
             overflow: hidden;
@@ -281,98 +149,162 @@ if (isset($_GET['nome'])) {
            <button onclick="closeCanvas()" style="margin-top: 10px;">Fechar</button>
         </div>
     </div>
+    <div id="message"></div>
 
-
+    <script src="js/etherium_client.js"></script>
     <script>
-      function closeCanvas() {
-          document.getElementById('canvas-container').style.display = 'none';
-      }
+         function closeCanvas(){
+             document.getElementById('canvas-container').style.display = 'none';
+         }
+        let currentAnimationId;
+        function searchHomeRuns() {
+            const playerName = document.getElementById('nome-jogador').value;
+            const resultsDiv = document.getElementById('resultado');
+            resultsDiv.innerHTML = '<p>Carregando...</p>';
 
-      let currentAnimationId;
 
-      function buscarHomeRun() {
-          const nomeJogador = document.getElementById('nome-jogador').value;
-          const resultsDiv = document.getElementById('resultado');
-          resultsDiv.innerHTML = '<p>Carregando...</p>';
-          document.getElementById('video-container').style.display = 'none'; //esconder video ao buscar
-            document.getElementById('dados-homerun').innerHTML = ''; //Limpar div dados-homerun
-
-          fetch(`index.php?nome=${encodeURIComponent(nomeJogador)}`)
-              .then(response => response.json())
-              .then(data => {
-                 resultsDiv.innerHTML = ''; // Limpar mensagem de carregando
-
-                  if (data.error) {
-                       resultsDiv.innerHTML = `<p style="color:red;">Erro: ${data.error}</p>`;
-
-                    } else if (data.message) {
+            fetch(`index.php?nome=${encodeURIComponent(playerName)}`)
+                .then(response => response.json())
+                .then(data => {
+                resultsDiv.innerHTML = '';
+                    if (data.error) {
+                        resultsDiv.innerHTML = `<p style="color:red;">Erro: ${data.error}</p>`;
+                    } else if(data.message){
                         resultsDiv.innerHTML = `<p>${data.message}</p>`;
+                    } else if (data.length > 0) {
+                         const table = document.createElement('table');
+                        table.style.borderCollapse = 'collapse';
+                        table.style.width = '100%';
 
-                    }else if (data && data.length > 0){
-
-                        const table = document.createElement('table');
-                        table.id = 'result-table';
-                         // Criar cabeçalho da tabela
+                        // Criar cabeçalho da tabela
                         const headerRow = table.insertRow();
-                        const headers = ["ID","Nome", "Data", "Distância", "Velocidade de Saída", "Ângulo de Saída", "Visualizar", "Video"];
-                         headers.forEach(headerText => {
+                        const headers = ["ID", "Data", "Distância", "Velocidade de Saída", "Ângulo de Saída", "Visualizar", "Vídeo"];
+                        headers.forEach(headerText => {
                             const th = document.createElement('th');
                             th.textContent = headerText;
+                            th.style.border = '1px solid black';
+                            th.style.padding = '8px';
                             headerRow.appendChild(th);
-                         });
-
-                         data.forEach(hr => {
+                        });
+                        data.forEach(hr => {
                             const row = table.insertRow();
 
-                            const idCell = row.insertCell();
+                             const idCell = row.insertCell();
                             idCell.textContent = hr.id;
-
-                            const nameCell = row.insertCell();
-                            nameCell.textContent = hr.nome;
-
-                            const dateCell = row.insertCell();
+                            idCell.style.border = '1px solid black';
+                            idCell.style.padding = '8px';
+                            
+                             const dateCell = row.insertCell();
                             dateCell.textContent = hr.game_date;
+                            dateCell.style.border = '1px solid black';
+                            dateCell.style.padding = '8px';
 
                             const distCell = row.insertCell();
                             distCell.textContent = hr.hit_distance;
-
+                            distCell.style.border = '1px solid black';
+                            distCell.style.padding = '8px';
+                            
                             const velCell = row.insertCell();
                             velCell.textContent = hr.exit_velocity;
+                            velCell.style.border = '1px solid black';
+                            velCell.style.padding = '8px';
 
                             const angleCell = row.insertCell();
                             angleCell.textContent = hr.launch_angle;
+                            angleCell.style.border = '1px solid black';
+                            angleCell.style.padding = '8px';
 
                              const viewCell = row.insertCell();
                             const viewButton = document.createElement('button');
                             viewButton.textContent = 'Visualizar';
                             viewButton.onclick = () => visualizeTrajectory(hr.id);
                             viewCell.appendChild(viewButton);
-
+                            viewCell.style.border = '1px solid black';
+                            viewCell.style.padding = '8px';
+                          
                             const videoCell = row.insertCell();
                             const videoButton = document.createElement('button');
                             videoButton.textContent = 'Video';
                             videoButton.onclick = () => exibirHomeRun(hr);
-                            videoCell.appendChild(videoButton)
-
+                            videoCell.appendChild(videoButton);
+                             videoCell.style.border = '1px solid black';
+                            videoCell.style.padding = '8px';
                         });
-                       resultsDiv.appendChild(table);
+
+                        resultsDiv.appendChild(table);
 
 
-                     } else {
-
+                    } else {
                         resultsDiv.innerHTML = '<p>Nenhum home run encontrado para este jogador.</p>';
+                    }
+                })
+                .catch(error => {
+                    resultsDiv.innerHTML = `<p style="color:red;">Erro na requisição: ${error}</p>`;
+                });
+        }
 
-                     }
 
-               })
+          function visualizeTrajectory(homeRunID) {
+            document.getElementById('canvas-container').style.display = 'flex';
+            const canvas = document.getElementById('trajectoryCanvas');
+            const ctx = canvas.getContext('2d');
+            const raio = 0.5;
+             let x = 0;
+             let y = canvas.height;
+             let tempo = 0;
+
+
+             if (currentAnimationId) {
+               cancelAnimationFrame(currentAnimationId);
+             }
+            fetch(`index.php?homeRunID=${encodeURIComponent(homeRunID)}`)
+               .then(response => response.json())
+              .then(data => {
+                 if (data.error) {
+                     alert("Erro ao buscar os dados da trajetória");
+                 } else {
+                    const distance = parseFloat(data.hit_distance);
+                    const exitVelocity = parseFloat(data.exit_velocity);
+                    const launchAngle = parseFloat(data.launch_angle);
+                    let initialSpeedX = exitVelocity * Math.cos(launchAngle * (Math.PI / 180));
+                     let initialSpeedY = -exitVelocity * Math.sin(launchAngle * (Math.PI / 180));
+                        function animate() {
+
+                                  ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpar o canvas
+
+                                  // Desenhar a bola
+                                   ctx.beginPath();
+                                     ctx.arc(x, y, raio * 10, 0, 2 * Math.PI); // Aumenta o raio para visualização
+                                   ctx.fillStyle = 'red';
+                                     ctx.fill();
+
+
+                                    // Cálculo da posição da bola
+                                     x =  initialSpeedX * tempo;
+                                     y = canvas.height - (initialSpeedY * tempo + 0.5 * 9.8 * tempo * tempo);
+
+
+                                  tempo += 0.05; // Incrementar o tempo
+                                  // Parar a animação quando a bola sair do canvas
+
+                                  if(y > canvas.height || x > canvas.width){
+                                        return;
+                                  }
+                                  currentAnimationId = requestAnimationFrame(animate);
+
+
+                          }
+                         animate();
+                }
+
+             })
+
                .catch(error => {
-                   console.error('Erro na requisição:', error);
-                    resultsDiv.innerHTML = '<p style="color:red;">Erro ao buscar home run. Tente novamente.</p>';
-               });
-       }
-
-
-     function exibirHomeRun(dados) {
+                   alert("Erro na requisição da trajetória");
+                });
+          }
+         
+       function exibirHomeRun(dados) {
 
             document.getElementById('video-container').style.display = 'block';
             document.getElementById('video-source').src = dados.link_video;
@@ -394,59 +326,6 @@ if (isset($_GET['nome'])) {
             `;
         }
 
-        function visualizeTrajectory(homeRunID) {
-
-           document.getElementById('canvas-container').style.display = 'flex';
-           const canvas = document.getElementById('trajectoryCanvas');
-           const ctx = canvas.getContext('2d');
-           const raio = 0.5;
-           let x = 0;
-           let y = canvas.height;
-           let tempo = 0;
-
-           if (currentAnimationId) {
-               cancelAnimationFrame(currentAnimationId);
-           }
-
-           fetch(`index.php?homeRunID=${encodeURIComponent(homeRunID)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                         alert("Erro ao buscar os dados da trajetória");
-                    } else {
-
-                       const distance = parseFloat(data.hit_distance);
-                       const exitVelocity = parseFloat(data.exit_velocity);
-                       const launchAngle = parseFloat(data.launch_angle);
-                       let initialSpeedX = exitVelocity * Math.cos(launchAngle * (Math.PI / 180));
-                       let initialSpeedY = -exitVelocity * Math.sin(launchAngle * (Math.PI / 180));
-
-                        function animate() {
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-                            ctx.beginPath();
-                            ctx.arc(x, y, raio * 10, 0, 2 * Math.PI);
-                            ctx.fillStyle = 'red';
-                            ctx.fill();
-
-                             x =  initialSpeedX * tempo;
-                              y = canvas.height - (initialSpeedY * tempo + 0.5 * 9.8 * tempo * tempo);
-
-                           tempo += 0.05;
-
-                           if (y > canvas.height || x > canvas.width) {
-                              return;
-                            }
-
-                             currentAnimationId = requestAnimationFrame(animate);
-
-                         }
-                       animate();
-                     }
-              })
-             .catch(error => {
-                   alert("Erro na requisição da trajetória");
-              });
-        }
     </script>
 </body>
 </html>
