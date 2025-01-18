@@ -7,7 +7,7 @@
 	<link rel="icon" href="mlb_png.png" type="image/png">
 	
     <style>
-        /* Estilo da barra de navegação (similar ao seu código original) */
+       /* Estilo da barra de navegação (similar ao seu código original) */
         nav {
             background-color: #041e42;
             overflow: hidden;
@@ -24,6 +24,15 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
+		  footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8em;
+            color: #777;
+           border-top: 1px solid #ddd;
+             margin-top: auto;
+        }
+		
         nav a:hover {
             background-color: #223f5e;
         }
@@ -112,7 +121,37 @@
          #result-table th {
                 background-color: #f2f2f2;
             }
-
+        #busca {
+            margin: 20px auto;
+            width: 800px;
+            display: flex;
+             flex-direction: column;
+            align-items: center;
+             text-align: center;
+         }
+         #busca > div {
+             display: flex;
+             width: 100%;
+              justify-content: center;
+             gap: 10px;
+         }
+         #busca input,
+         #busca button{
+             margin: 0;
+              padding: 0.8em;
+            border-radius: 24px;
+               border: 1px solid #ccc;
+              font-size: 1em;
+         }
+       #busca p {
+          font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 400px;
+        }
     </style>
 </head>
 <body>
@@ -139,9 +178,11 @@
     </div>
 
     <div id="busca">
-         <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
-         <button onclick="searchHomeRuns()">Buscar</button>
-      <p style="font-size: 0.9em; color: #666; margin-top: 10px;">MLB Home Run's Search</p>
+         <div >
+             <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
+             <button onclick="searchHomeRuns()">Buscar</button>
+         </div>
+       
     </div>
 
     <div id="resultado"></div>
@@ -234,7 +275,6 @@
                             videoCell.appendChild(videoButton);
                              videoCell.style.border = '1px solid black';
                             videoCell.style.padding = '8px';
-
                         });
 
                         resultsDiv.appendChild(table);
@@ -265,7 +305,7 @@
              let x = 0;
              let y = canvas.height;
              let tempo = 0;
-             const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
+                const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
 
 
              if (currentAnimationId) {
@@ -303,21 +343,22 @@
         function exibirHomeRun(dados) {
             document.getElementById('video-container').style.display = 'block';
             document.getElementById('video-source').src = dados.link_video;
-               // Envia a URL do video para o Nodejs
+
+             // Envia a URL do video para o Nodejs
               fetch('http://localhost:3001/analyze-video', {
                 method: 'POST',
-                   headers: {
+                 headers: {
                       'Content-Type': 'application/json',
-                    },
-                   body: JSON.stringify({ videoUrl: dados.link_video }),
+                  },
+                  body: JSON.stringify({ videoUrl: dados.link_video }),
               })
-               .then(response => response.json())
+              .then(response => response.json())
               .then(data => {
                      document.getElementById('resultado').textContent = `Volume da bola: ${data.volume.toFixed(4)} metros cúbicos`;
-               })
-                  .catch(error => {
-                   console.error('Erro ao calcular volume:', error);
-                   document.getElementById('resultado').textContent = `Erro ao calcular volume.`;
+                })
+                 .catch(error => {
+                    console.error('Erro ao calcular volume:', error);
+                    document.getElementById('resultado').textContent = `Erro ao calcular volume.`;
                 });
 
              // Exibir dados do home run abaixo do vídeo
@@ -327,8 +368,12 @@
                  <p>Exit Velocity: ${dados.exit_velocity}</p>
                  <p>Hit Distance: ${dados.hit_distance}</p>
                  <p>Launch Angle: ${dados.launch_angle}</p>
-              `;
-            }
+            `;
+        }
+
     </script>
+	    <footer>
+        <p>© 2024 MLB Home Run Search. All rights reserved.</p>
+    </footer>
 </body>
 </html>
