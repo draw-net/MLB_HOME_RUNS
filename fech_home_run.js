@@ -176,27 +176,3 @@
         <p>Launch Angle: ${dados.launch_angle}</p>
     `;
   }
-</script>
-    <footer>
-        <p>© 2024 MLB Home Run Search. All rights reserved.</p>
-    </footer>
-	<script>
-	document.addEventListener('DOMContentLoaded', function() {
-  const userAgent = navigator.userAgent;
-
-  const bots = [
-    'curl',
-    'wget',
-    'python-requests',
-    'okhttp',
-    'go-http-client'
-    // ... outros User-Agents de robôs comuns
-  ];
-
-  for (const bot of bots) {
-    if (userAgent.toLowerCase().includes(bot.toLowerCase())) {
-      document.body.innerHTML = '<h1>Acesso Proibido, Você Hackeu uma Corporação, medidas legais serão tomadas perante as leis norte-americana</h1>'; // ou um redirecionamento
-      return; // Termina a execução do script
-    }
-  }
-});
