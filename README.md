@@ -48,4 +48,8 @@ Teste isoladamente: Execute o install.js manualmente na pasta opencv4nodejs.
 
 Compartilhe os logs: Se o erro persistir, compartilhe os resultados dos passos acima e os logs de instalação.
 -----------------------------------------------------------------------------------------------------------------------------------------------
-run GET_MLB
+pip install beautifulsoup4 instala a biblioteca BeautifulSoup4.
+
+Para executar comandos do DOS no Python, use o módulo subprocess.
+
+O BeautifulSoup4 é usado para analisar HTML e XML, mas não para exibir comandos do DOS.
