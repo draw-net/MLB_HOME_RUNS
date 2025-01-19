@@ -14,3 +14,21 @@ Execute server.js: Execute node server.js para iniciar o servidor Node.js.
 Execute code.py: Execute o script Python para popular a tabela jogadores_mlb (se você precisar usá-la).
 
 Acesse a página: Acesse o seu site pelo navegador e tente fazer a busca, e verifique se o erro desapareceu.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+**verificar a porta 3001 - instalação do etherium.js
+
+Use o comando netstat para verificar as portas:
+
+O comando netstat exibe as conexões de rede (TCP/UDP) do seu sistema, incluindo quais portas estão sendo usadas.
+
+Execute o comando abaixo para verificar as portas TCP/IP que estão em uso no seu sistema e filtre para exibir as conexões da porta 3001:
+
+netstat -ano | findstr :3001
+Use code with caution.
+Bat
+netstat -ano: Lista todas as conexões ativas e as portas "ouvindo" do sistema.
+
+| findstr :3001: Filtra a saída do netstat para exibir apenas as linhas que contenham a porta 3001.
+
+Você deverá ver o processo do seu nodejs (caso ele esteja rodando) utilizando essa porta.
