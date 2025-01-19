@@ -32,3 +32,20 @@ netstat -ano: Lista todas as conexões ativas e as portas "ouvindo" do sistema.
 | findstr :3001: Filtra a saída do netstat para exibir apenas as linhas que contenham a porta 3001.
 
 Você deverá ver o processo do seu nodejs (caso ele esteja rodando) utilizando essa porta.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Verifique o git e o cmake: Garanta que eles estão instalados e no PATH.
+
+Limpe o cache: Execute npm cache clean --force
+
+Remova node_modules: Remova manualmente a pasta node_modules.
+
+Instale a versão especifica do pacote Execute npm install opencv4nodejs@5.6.0 e veja se a instalação funciona.
+
+Reinstale as dependências: Tente executar o comando npm install express fluent-ffmpeg node-fetch opencv4nodejs
+
+Teste isoladamente: Execute o install.js manualmente na pasta opencv4nodejs.
+
+Compartilhe os logs: Se o erro persistir, compartilhe os resultados dos passos acima e os logs de instalação.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+run GET_MLB
