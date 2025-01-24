@@ -1,117 +1,3 @@
-<html>
-	
-	<script>
-	# Initialize Coinbase Wallet SDK
-const sdk = new CoinbaseWalletSDK({appName: "An Awesome App", appChainIds: [84532]});
-
-# Make web3 provider
-const provider = sdk.makeWeb3Provider();
-
-# Initialize wallet connection
-const addresses = provider.request("eth_requestAccounts");
-
-		import { Coinbase, Wallet } from "@coinbase/coinbase-sdk";
-    
-// Paste in your API key name and private key generated from https://portal.cdp.coinbase.com/access/api below:
-const apiKeyName = "organizations/your-org-id/apiKeys/your-api-key-id";
-
-const apiKeyPrivateKey = "-----BEGIN EC PRIVATE KEY-----\nyour-api-key-private-key\n-----END";
-
-const coinbase = new Coinbase(apiKeyName, apiKeyPrivateKey);
-
-// Create your first wallet.
-const wallet = await Wallet.create();
-
-// Fund your wallet using a faucet.
-await wallet.faucet();
-	</script>
-	
-	<meta name="page-identifier" content="Y8LD8Q3Z">
-<link rel="canonical" href="https://www.sousato.net/canvas/index_rgraph.html">
-
-	<script curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash
-		apply.call.data.ltda('htpps:\\www.sousato.net')/bash.profile and export for more information(taka)
-		andress.shell(c:\>("https:www.cia.gov">/request\HTMLTableDataCellElement.ltda(shets>>>i)
-</script>
-	
-	<script target.local.bepop.278516.(logName = "projects/local-bebop-278516/logs/cloudaudit.googleapis.com%2Factivity" OR logName = "projects/local-bebop-278516/logs/cloudaudit.googleapis.com%2Fdata_access"
-OR labels.activity_type_name:*) protoPayload.resourceName="projects/978506108372/operations/acat.p2-978506108372-9841ae7b-5b78-4196-b3ac-599dde144282">
-</script>
-	<script git $1k8USD hub protoPayload.methodName:"google.api.serviceusage.v1.ServiceUsage.BatchEnableServices" gh.r.protoPayload.authenticationInfo.principalEmail:"armandotakashisato@gmail.com"></script>
-<script src="js/etherium_client.js"></script>
-	<script>const express = require('express');
-const app = express();
-
-const BOT_USER_AGENTS = [
-    'curl',
-    'wget',
-    'python-requests',
-    'okhttp',
-    'go-http-client',
-    // ... adicione mais
-];
-
-const REQUEST_LIMIT_PER_IP = 10; // Requisições por IP por minuto
-const requestCounts = {};
-
-app.use((req, res, next) => {
-    const userAgent = req.get('User-Agent');
-    const ip = req.ip;
-
-    // 1. Check User-Agent
-    if (userAgent) {
-        const lowerUserAgent = userAgent.toLowerCase();
-        for (const bot of BOT_USER_AGENTS) {
-            if (lowerUserAgent.includes(bot.toLowerCase())) {
-                console.warn(`Bot detected by User-Agent: ${userAgent}, IP: ${ip}`);
-                return res.status(403).send('Forbidden (User-Agent)');
-            }
-        }
-    }
-
-    // 2. Check Request Rate
-    if (!requestCounts[ip]) {
-        requestCounts[ip] = 0;
-    }
-    requestCounts[ip]++;
-
-    if (requestCounts[ip] > REQUEST_LIMIT_PER_IP) {
-        console.warn(`High request rate detected from IP: ${ip}`);
-       return res.status(429).send('Too Many Requests');
-    }
-  
-      setTimeout(() => {
-        requestCounts[ip]--;
-          if(requestCounts[ip]<0){
-              requestCounts[ip] = 0;
-          }
-      }, 60000);
-
-    next();
-});
-
-
-app.get("/", (req, res) => {
-    res.send("Welcome to my Website");
-});
-
-
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
-});</script>
-<script>
-if (document.addEventListener) {
-    document.addEventListener("contextmenu", function(e) {
-        e.preventDefault();
-        return false;
-    });
-} else { //Versões antigas do IE
-    document.attachEvent("oncontextmenu", function(e) {
-        e = e || window.event;
-        e.returnValue = false;
-        return false;
-    });
-}
 </script>
 
 	<script>document.getElementById("view-source:https://www.cia.gov");        
@@ -165,229 +51,320 @@ bal core.editor "nano -4365.T in https://matsumoto-yoshi-seiya-co-ltda.business.
     <script src="js/libs/loaders/GLTFLoader.js"></script>
     <script src="js/libs/loaders/DRACOLoader.js"></script>
     <script src="js/libs/draco/draco_decoder.js"></script>
-   <style>
-        /* Estilos CSS */
-        nav {
-            background-color: #041e42;
-            overflow: hidden;
-            font-family: sans-serif;
-        }
-        nav a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        nav a:hover {
-            background-color: #223f5e;
-        }
-        @media screen and (max-width: 768px) {
-            nav a {
-                float: none;
-                display: block;
-                text-align: left;
-                width: 100%;
-                margin: 0;
-                padding: 14px;
-            }
-        }
-        #mlb-logo {
-            float: left;
-            height: 40px;
-            padding: 6px 10px;
-        }
+    <style>
+     /* Estilos CSS */
+nav {
+    background-color: #041e42;
+    overflow: hidden;
+    font-family: sans-serif;
+     position: relative; /* Adicionado para servir como referência para o posicionamento absoluto */
+}
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+nav a:hover {
+    background-color: #223f5e;
+}
+@media screen and (max-width: 768px) {
+    nav a {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+}
+#mlb-logo {
+    float: left;
+    height: 40px;
+    padding: 6px 10px;
+}
 
-        /* Estilos adicionais para o conteúdo principal */
-        #video-container {
-            display: none; /* Oculto inicialmente até encontrar um home run */
-            margin: 20px auto; /* Centralizar e adicionar margem */
-            max-width: 80%;  /* Reduzir a largura máxima */
-            width: 800px;
-            /*text-align: center;*/ /* Centralizar o vídeo */
-            border: 1px solid #ccc;
-        }
+/* Estilos adicionais para o conteúdo principal */
+#video-container {
+    display: none; /* Oculto inicialmente até encontrar um home run */
+    margin: 20px auto; /* Centralizar e adicionar margem */
+    max-width: 80%;  /* Reduzir a largura máxima */
+    width: 800px;
+    /*text-align: center;*/ /* Centralizar o vídeo */
+    border: 1px solid #ccc;
+}
+#video-container video {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    /*padding-top: 20px;*/
+}
+#busca {
+    margin: 10px auto;
+    width: 800px;
+    text-align: center;
+}
+#dados-homerun {
+    margin-top: 20px;
+    width: 800px;
+    padding: 10px;
+    border: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+#resultado {
+    text-align: center;
+    margin: 10px;
+}
+#canvas-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+#canvas-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+canvas {
+    background: white;
+}
+#result-table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.8em;
+    font-family: sans-serif;
+    max-width: 900px;
+}
+#result-table th,
+#result-table td {
+    border: 1px solid #ddd;
+    padding: 4px 8px;
+    text-align: right;
+    /* Align numbers to the right */
+    white-space: nowrap;
+    /* Prevent wrapping */
+}
+#result-table th {
+    background-color: #f0f0f0;
+    /* Light grey */
+    font-weight: bold;
+    text-align: center;
+}
+#result-table th:first-child,
+#result-table td:first-child {
+    text-align: left;
+    font-weight: bold;
+}
+#busca {
+    margin: 10px auto;
+    width: 800px;
+    text-align: center;
+}
+#busca > div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+}
+#busca input,
+#busca button {
+    margin: 0;
+    padding: 0.8em;
+    border-radius: 24px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+#busca p {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8em;
+    color: #777;
+    border-top: 1px solid #ddd;
+    margin-top: auto;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Garante que o body tenha pelo menos 100% da altura da viewport */
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+#canvas-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+#canvas-overlay-content {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    border: none;
+    overflow: hidden;
+}
+#close-canvas {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#ballWeightLabel {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+}
 
-        #video-container video {
-            width: 100%;
-            max-width: 100%;
-            display: block;
-            /*padding-top: 20px;*/
-        }
-        #busca {
-            margin: 20px auto;
-            width: 800px;
-            text-align: center;
-        }
-        #dados-homerun {
-            margin-top: 20px;
-            width: 800px;
-            padding: 10px;
-            border: 1px solid #eee;
-            background-color: #f9f9f9;
-
-        }
-        #resultado {
-            text-align: center;
-            margin: 10px;
-        }
-        #canvas-container {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-
-        #canvas-container  > div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        canvas {
-            background: white;
-        }
-        #result-table {
-            width: 100%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 0.8em;
-             font-family: sans-serif;
-             max-width: 900px;
-        }
-        #result-table th, #result-table td {
-            border: 1px solid #ddd;
-             padding: 4px 8px;
-            text-align: right; /* Align numbers to the right */
-            white-space: nowrap; /* Prevent wrapping */
-        }
-        #result-table th {
-            background-color: #f0f0f0; /* Light grey */
-            font-weight: bold;
-             text-align: center;
-        }
-        #result-table th:first-child,
-         #result-table td:first-child{
-               text-align: left;
-               font-weight: bold;
-        }
-        #busca {
-            margin: 20px auto;
-            width: 800px;
-            text-align: center;
-        }
-        #busca > div {
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            gap: 10px;
-        }
-        #busca input,
-        #busca button{
-            margin: 0;
-            padding: 0.8em;
-            border-radius: 24px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-        }
-        #busca p {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 10px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 400px;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 0.8em;
-            color: #777;
-            border-top: 1px solid #ddd;
-            margin-top: auto;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh; /* Garante que o body tenha pelo menos 100% da altura da viewport */
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        #canvas-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        #canvas-overlay-content{
-            position: relative;
-            width: 80%;
-            height: 80%;
-            border: none;
-            overflow: hidden;
-        }
-        #close-canvas{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            padding: 10px;
-            background-color: #eee;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #ballWeightLabel{
-             position: absolute;
-             bottom: 20px;
-             left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .special-row {
-             background-color: #ADD8E6; /* Light blue */
-             color: #041e42; /* Dark blue for text */
-        }
-         #top-homerun-section {
-            width: 800px;
-            margin: 20px auto;
-            padding: 15px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-        }
-        #top-homerun-section h2 {
-            margin-bottom: 10px;
-            color: #333;
-            text-align: center;
-        }
-
-         #top-homerun-section div {
-             margin: 5px 0;
-              text-align: left;
-         }
-         #top-homerun-section video {
-            width: 100%;
-            max-width: 100%;
-            display: block;
-        }
-          .numeric-cell {
-            text-align: right;
-             padding-right: 10px;
-        }
+.special-row {
+    background-color: #ADD8E6;
+    /* Light blue */
+    color: #041e42;
+    /* Dark blue for text */
+}
+#top-homerun-section {
+    width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+#top-homerun-section h2 {
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+#top-homerun-section div {
+    margin: 5px 0;
+    text-align: left;
+}
+#top-homerun-section video {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+}
+.numeric-cell {
+    text-align: right;
+    padding-right: 10px;
+}
+#video-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+#video-overlay-content {
+    position: relative;
+    width: 80%;
+    max-height: 80%;
+    background: white;
+    padding: 20px;
+    overflow: auto;
+}
+#close-video {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#video-canvas {
+    max-width: 100%;
+    max-height: calc(80vh - 80px);
+    display: block;
+}
+#video-overlay-canvas-content {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#video-overlay-data-container {
+    margin-top: 10px;
+    text-align: center;
+    color: #333;
+}
+#loading-overlay img {
+    height: 100px;
+}
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    /* White */
+    z-index: 9999;
+    /* High z-index to cover other content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 3px;
+    gap: 5px;
+    justify-content: center;
+}
+.search-container input,
+.search-container button {
+    margin: 0;
+    padding: 0.6em;
+    border-radius: 24px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+}
+    /* Estilo específico para o botão de pesquisa na barra de navegação */
+nav .search-container {
+    position: absolute;
+    right: 8px; /* Ajuste a distância do canto direito como necessário */
+    top: 50%;
+    transform: translateY(-50%);
+}
     </style>
 </head>
 <body>
@@ -403,25 +380,30 @@ bal core.editor "nano -4365.T in https://matsumoto-yoshi-seiya-co-ltda.business.
     <a href="https://www.mlb.com/SHOP">SHOP</a>
     <a href="https://www.mlb.com/TEAMS">TEAMS</a>
     <a href="https://www.sousatonet/mlb/index.php">HOME RUN</a>
+    <div class="search-container">
+        <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
+        <button onclick="searchHomeRuns()">Buscar</button>
+   </div>
 </nav>
 
-<div id="video-container" style="display:none;">
+<div id="video-container">
     <div id="dados-homerun"></div>
 </div>
 
-<div id="busca" style="display:none;">
-    <div >
-        <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
-        <button onclick="searchHomeRuns()">Buscar</button>
-    </div>
-
-</div>
 
 <div id="resultado"></div>
-
+<div id="video-overlay">
+    <div id="video-overlay-content">
+         <span id="close-video" onclick="closeVideoOverlay()">X</span>
+        <div id="video-overlay-canvas-content">
+            <canvas id="video-canvas"></canvas>
+        </div>
+       <div id="video-overlay-data-container"></div>
+   </div>
+</div>
 <div id="canvas-container">
     <div id="canvas-overlay-content">
-        <span id="close-canvas" onclick="closeCanvas()">X</span>
+         <span id="close-canvas" onclick="closeCanvas()">X</span>
         <canvas id="trajectoryCanvas" width="600" height="400"></canvas>
         <label id="ballWeightLabel"></label>
     </div>
@@ -454,14 +436,14 @@ $sql_data_all = "SELECT * , (distancia + velocidade * 0.5 ) as score FROM mlb_ho
 $where_clause_all = [];
 
 if (!empty($playerName)){
-   $where_clause_all[] = "data LIKE '%" . $playerName . "%'";
+    $where_clause_all[] = "data LIKE '%" . $playerName . "%'";
 }
 
 
 if (!empty($where_clause_all)){
-  $sql_data_all .= " WHERE " . implode(" AND ", $where_clause_all);
+    $sql_data_all .= " WHERE " . implode(" AND ", $where_clause_all);
 }
-  $sql_data_all .= " ORDER BY score DESC";
+$sql_data_all .= " ORDER BY score DESC";
 
 $result_all = $conexao->query($sql_data_all);
 
@@ -502,7 +484,7 @@ $sql_data = "SELECT * , (distancia + velocidade * 0.5 ) as score FROM mlb_homeru
 $where_clause = [];
 
 if (!empty($playerName)){
-   $where_clause[] = "data LIKE '%" . $playerName . "%'";
+    $where_clause[] = "data LIKE '%" . $playerName . "%'";
 }
 
 if (!empty($where_clause)){
@@ -531,19 +513,19 @@ $conexao->close();
 <div id="top-homerun-section">
     <h2>Top Home Run</h2>
     <?php if ($top_homerun):
-          $parts = explode(" on ", $top_homerun['data']); ?>
-              <div><strong>Data:</strong> <?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></div>
-                <div><strong>Distância:</strong> <?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?></div>
-                <div><strong>Velocidade de Saída:</strong> <?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?></div>
-                <div><strong>Ângulo de Saída:</strong> <?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?></div>
-               <div><strong>Peso da Bola:</strong> <?php echo htmlspecialchars($top_homerun['formattedWeight']); ?></div>
-                <div><strong>Rotação (RPM):</strong> <?php echo htmlspecialchars($top_homerun['formattedRPM']); ?></div>
-                <?php if (!empty($top_homerun['video'])): ?>
-                     <video controls src="<?php echo htmlspecialchars($top_homerun['video']); ?>"></video>
-                <?php endif; ?>
-            <?php else: ?>
-              <p>Nenhum home run especial encontrado.</p>
+        $parts = explode(" on ", $top_homerun['data']); ?>
+        <div><strong>Data:</strong> <?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></div>
+        <div><strong>Distância:</strong> <?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?></div>
+        <div><strong>Velocidade de Saída:</strong> <?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?></div>
+        <div><strong>Ângulo de Saída:</strong> <?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?></div>
+        <div><strong>Peso da Bola:</strong> <?php echo htmlspecialchars($top_homerun['formattedWeight']); ?></div>
+        <div><strong>Rotação (RPM):</strong> <?php echo htmlspecialchars($top_homerun['formattedRPM']); ?></div>
+        <?php if (!empty($top_homerun['video'])): ?>
+            <video controls src="<?php echo htmlspecialchars($top_homerun['video']); ?>"></video>
         <?php endif; ?>
+    <?php else: ?>
+        <p>Nenhum home run especial encontrado.</p>
+    <?php endif; ?>
 
 </div>
 <div id="tabela-resultados">
@@ -551,18 +533,18 @@ $conexao->close();
         <thead>
         <tr>
             <th>Data</th>
-              <th>Distância</th>
+            <th>Distância</th>
             <th>Velocidade de Saída</th>
-              <th>Ângulo de Saída</th>
-                <th>Peso da Bola</th>
-                <th>Rotação (RPM)</th>
+             <th>Ângulo de Saída</th>
+            <th>Peso da Bola</th>
+             <th>Rotação (RPM)</th>
             <th>Visualizar</th>
         </tr>
         </thead>
         <tbody>
         <?php  if ($result->num_rows > 0):
             while($row = $result->fetch_assoc()):
-                 $parts = explode(" on ", $row['data']);
+                $parts = explode(" on ", $row['data']);
                 $radius = 0.074; // Radius of the baseball in meters
                 $volume = (4/3) * M_PI * pow($radius, 3);
                 $density = 145;
@@ -587,17 +569,17 @@ $conexao->close();
                 // Apply class if conditions are met
                 $rowClass = '';
                 if (round($row['angulo']) >= 30 && round($row['angulo']) <= 35 && $effectiveWeight > 3 && $rpm > 2400) {
-                   $rowClass = 'special-row';
-                 }
+                    $rowClass = 'special-row';
+                }
                 ?>
                 <tr class="<?php echo $rowClass; ?>">
                     <td><?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></td>
-                      <td class="numeric-cell"><?php echo htmlspecialchars($row['distancia'] ?? ''); ?></td>
+                    <td class="numeric-cell"><?php echo htmlspecialchars($row['distancia'] ?? ''); ?></td>
                     <td class="numeric-cell"><?php echo htmlspecialchars($row['velocidade'] ?? ''); ?></td>
-                       <td class="numeric-cell"><?php echo htmlspecialchars($row['angulo'] ?? ''); ?></td>
-                       <td class="numeric-cell"><?php echo htmlspecialchars($formattedWeight); ?></td>
-                       <td class="numeric-cell"><?php echo htmlspecialchars($formattedRPM); ?></td>
-                    <td><button onclick="visualizeTrajectory('<?php echo htmlspecialchars($row['id'] ?? ''); ?>', '<?php echo htmlspecialchars($row['distancia'] ?? ''); ?>','<?php echo htmlspecialchars($row['velocidade'] ?? ''); ?>','<?php echo htmlspecialchars($row['angulo'] ?? ''); ?>','<?php echo htmlspecialchars($row['video'] ?? ''); ?>' )">Visualizar</button></td>
+                    <td class="numeric-cell"><?php echo htmlspecialchars($row['angulo'] ?? ''); ?></td>
+                    <td class="numeric-cell"><?php echo htmlspecialchars($formattedWeight); ?></td>
+                     <td class="numeric-cell"><?php echo htmlspecialchars($formattedRPM); ?></td>
+                    <td><button onclick="showVideoAndData('<?php echo htmlspecialchars($row['id'] ?? ''); ?>', '<?php echo htmlspecialchars($row['data'] ?? ''); ?>','<?php echo htmlspecialchars($row['distancia'] ?? ''); ?>','<?php echo htmlspecialchars($row['velocidade'] ?? ''); ?>','<?php echo htmlspecialchars($row['angulo'] ?? ''); ?>','<?php echo htmlspecialchars($row['video'] ?? ''); ?>','<?php echo htmlspecialchars($formattedWeight); ?>','<?php echo htmlspecialchars($formattedRPM); ?>')">Visualizar</button></td>
                 </tr>
             <?php endwhile;
         else: ?>
@@ -622,12 +604,9 @@ $conexao->close();
     document.addEventListener('DOMContentLoaded', function() {
         const loadingOverlay = document.getElementById('loading-overlay');
         const nav = document.querySelector('nav');
-        const busca = document.getElementById('busca');
-
         setTimeout(function() {
             loadingOverlay.style.display = 'none';
-            nav.style.display = 'block';
-            busca.style.display = 'flex';
+             nav.style.display = 'flex';
         }, 4200);
 
     });
@@ -638,139 +617,156 @@ $conexao->close();
             const scene = JSON.parse(canvas.dataset.scene)
             scene.renderer.dispose();
         }
-           const iframe = document.getElementById('canvas-iframe');
-            if(iframe){
-               iframe.remove()
-            }
+        const iframe = document.getElementById('canvas-iframe');
+        if(iframe){
+           iframe.remove()
+        }
+    }
+   function closeVideoOverlay(){
+        document.getElementById('video-overlay').style.display = 'none';
+        const canvas = document.querySelector('#video-overlay-content canvas');
+       if(canvas){
+           cancelAnimationFrame(canvas.animationId)
+            canvas.videoElement.pause();
+           canvas.videoElement = null
+        }
     }
     let currentAnimationId;
-    function calculateDeformation(speed, distance){
+  function calculateDeformation(speed, distance){
         const maxDeformation = 15;
-        const deformationFactor = 0.05;
+      const deformationFactor = 0.05;
         const deformation = speed * distance * deformationFactor;
-        return Math.min(deformation, maxDeformation);
-    }
-
-
+       return Math.min(deformation, maxDeformation);
+  }
    function calculateBallWeight(speed, angle, distance) {
-        const radius = 0.074; // Radius of the baseball in meters
-        const volume = (4/3) * Math.PI * Math.pow(radius, 3);
+       const radius = 0.074; // Radius of the baseball in meters
+       const volume = (4/3) * Math.PI * Math.pow(radius, 3);
         const density = 145;
-        const baseMass = volume * density;
-
-
-         // Convert the launch angle from degrees to radians
-        const launchAngleInRadians = angle * (Math.PI / 180);
+       const baseMass = volume * density;
+        // Convert the launch angle from degrees to radians
+       const launchAngleInRadians = angle * (Math.PI / 180);
 
         //Gravitational Acceleration
         const g = 9.81;
-
         // Calculate the cross-sectional area of the ball
-        const crossSectionalArea = 3 * Math.PI * Math.pow(radius, 2);
-
-        // Density of air
-        const densityOfAir = 1.225; // kg/m^3;
-
+       const crossSectionalArea = 3 * Math.PI * Math.pow(radius, 2);
+       // Density of air
+      const densityOfAir = 1.225; // kg/m^3;
         // Calculate drag coefficient using the speed and the area of the ball. The higher the speed the lower the drag, and the higher the area of the ball, the higher the drag, so the drag becomes a "ratio" of speed / area
         const dragCoefficient = Math.max(0.01, 1/ (speed * crossSectionalArea ) );
-
-
-        //Calculate the drag force on the ball
+       //Calculate the drag force on the ball
         const dragForce = 0.5 * dragCoefficient * densityOfAir * crossSectionalArea * Math.pow(speed,2);
-
-
-         // Calculate effective weight using an estimation based on force generated by the velocity and angle
-        const effectiveWeight = baseMass + (dragForce * Math.sin(launchAngleInRadians)/g) ;
-
+      // Calculate effective weight using an estimation based on force generated by the velocity and angle
+       const effectiveWeight = baseMass + (dragForce * Math.sin(launchAngleInRadians)/g) ;
         return effectiveWeight;
-
-
-    }
-
-    function calculateRotation(speed, angle) {
-        const radius = 0.074; // Radius of the baseball in meters
+  }
+   function calculateRotation(speed, angle) {
+       const radius = 0.074; // Radius of the baseball in meters
         const exitVelocityMps = speed * 0.44704; // Convert mph to m/s
-        const launchAngleRad = angle * Math.PI / 180; // Convert degrees to radians
+       const launchAngleRad = angle * Math.PI / 180; // Convert degrees to radians
         const spinEfficiency = 0.7; // Estimation, adjust as needed
-
-        // Simplified model: spin depends on exit velocity and launch angle.
+       // Simplified model: spin depends on exit velocity and launch angle.
         const spinRateRadPerSec = (exitVelocityMps / radius) * Math.sin(launchAngleRad) * spinEfficiency;
-
-        const rpm = (spinRateRadPerSec * 60) / (2 * Math.PI); // Convert to RPM
-        return rpm;
+      const rpm = (spinRateRadPerSec * 60) / (2 * Math.PI); // Convert to RPM
+      return rpm;
     }
-
+    function showVideoOnCanvas(videoUrl, formattedWeight, formattedRPM) {
+        const videoOverlay = document.getElementById('video-overlay');
+      const canvas = document.getElementById('video-canvas');
+        const ctx = canvas.getContext('2d');
+        videoOverlay.style.display = 'flex';
+        const video = document.createElement('video');
+       video.src = videoUrl;
+       video.controls = false;
+        video.onloadedmetadata = function(){
+           canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            //Start the video
+            video.play();
+            //Assign the video element to the canvas
+            canvas.videoElement = video;
+           drawFrame();
+      }
+        function drawFrame(){
+            if(canvas.videoElement){
+                ctx.drawImage(canvas.videoElement, 0, 0, canvas.width, canvas.height);
+                ctx.font = '18px sans-serif';
+                ctx.fillStyle = 'white';
+                const formattedWeightDisplay = formattedWeight + ' kg';
+                const formattedRPMDisplay =  formattedRPM + ' RPM';
+               ctx.fillText(`Weight: ${formattedWeightDisplay}`, 10, 20);
+               ctx.fillText(`Rotation: ${formattedRPMDisplay}`, 10, 40);
+             canvas.animationId =  requestAnimationFrame(drawFrame);
+          }
+       }
+       video.onerror = function() {
+           console.error("Erro ao carregar o video:", videoUrl);
+        }
+    }
+    function showVideoAndData(homeRunID, data, distance, exitVelocity, launchAngle, videoUrl, formattedWeight, formattedRPM) {
+         const videoOverlay = document.getElementById('video-overlay');
+       const videoContent = document.getElementById('video-overlay-data-container');
+       videoOverlay.style.display = 'flex';
+        videoContent.innerHTML = '';
+        // Create the HTML content
+         const parts = data.split(" on ");
+        let htmlContent = `
+           <p><strong>${parts[0].trim()}</strong></p>
+        `;
+         videoContent.innerHTML = htmlContent;
+      showVideoOnCanvas(videoUrl, formattedWeight, formattedRPM);
+    }
    function visualizeTrajectory(homeRunID, distance, exitVelocity, launchAngle, videoUrl) {
-        document.getElementById('canvas-container').style.display = 'flex';
+       document.getElementById('canvas-container').style.display = 'flex';
         const canvas = document.getElementById('trajectoryCanvas');
         const canvasOverlay = document.getElementById('canvas-overlay-content');
-         const ballWeightLabel = document.getElementById('ballWeightLabel');
-         const iframe = document.getElementById('canvas-iframe');
-         if (iframe){
-                iframe.remove();
-            }
-        const width = canvas.offsetWidth;
+        const ballWeightLabel = document.getElementById('ballWeightLabel');
+        const iframe = document.getElementById('canvas-iframe');
+        if (iframe){
+            iframe.remove();
+        }
+       const width = canvas.offsetWidth;
         const height = canvas.offsetHeight;
-
         const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
-         const ballWeight = calculateBallWeight(parseFloat(exitVelocity), parseFloat(launchAngle), parseFloat(distance));
-       const rotation = calculateRotation(parseFloat(exitVelocity), parseFloat(launchAngle));
-
-
+        const ballWeight = calculateBallWeight(parseFloat(exitVelocity), parseFloat(launchAngle), parseFloat(distance));
+        const rotation = calculateRotation(parseFloat(exitVelocity), parseFloat(launchAngle));
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-        renderer.setSize(width, height);
+      renderer.setSize(width, height);
         canvas.dataset.scene = JSON.stringify({scene, camera, renderer})
-
-        // Geometry and Material
-        const geometry = new THREE.SphereGeometry(0.5, 32, 32);
-
+       // Geometry and Material
+       const geometry = new THREE.SphereGeometry(0.5, 32, 32);
         // Red Deformed Ball
         const redMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red
         const deformedBall = new THREE.Mesh(geometry, redMaterial);
         const deformedScale = 1 + deformation / 40;
-        deformedBall.scale.set(1, deformedScale, 1);
-
-
+       deformedBall.scale.set(1, deformedScale, 1);
         // Blue Undeformed Ball (Perfect)
-         const blueMaterial = new THREE.MeshBasicMaterial({
-            color: 0x0000ff, // Blue
+       const blueMaterial = new THREE.MeshBasicMaterial({
+           color: 0x0000ff, // Blue
             transparent: true,
-            opacity: 0.5,
-            side: THREE.DoubleSide,
-            depthWrite: false
-        });
+           opacity: 0.5,
+           side: THREE.DoubleSide,
+             depthWrite: false
+      });
         const undeformedBall = new THREE.Mesh(geometry, blueMaterial);
-        undeformedBall.position.z = 0.01; // A tiny offset
-
-
-       scene.add(deformedBall);
+      undeformedBall.position.z = 0.01; // A tiny offset
+        scene.add(deformedBall);
         scene.add(undeformedBall);
-
         camera.position.z = 5;
-
-
-
         // Render the scene once
-        renderer.render(scene, camera);
-
-
-        const newIframe = document.createElement('iframe');
-        newIframe.src = videoUrl;
-        newIframe.id = 'canvas-iframe';
-         canvasOverlay.appendChild(newIframe);
-
+       renderer.render(scene, camera);
+      const newIframe = document.createElement('iframe');
+       newIframe.src = videoUrl;
+      newIframe.id = 'canvas-iframe';
+        canvasOverlay.appendChild(newIframe);
         const formattedWeight = ballWeight.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
-        const formattedRotation = rotation.toLocaleString(undefined, { maximumFractionDigits: 0 });
-
-        ballWeightLabel.innerHTML = `Peso da Bola: ${formattedWeight} kg <br/> Rotação: ${formattedRotation} RPM`;
+       const formattedRotation = rotation.toLocaleString(undefined, { maximumFractionDigits: 0 });
+       ballWeightLabel.innerHTML = `Peso da Bola: ${formattedWeight} kg <br/> Rotação: ${formattedRotation} RPM`;
     }
-
-
     function searchHomeRuns() {
-           const playerName = document.getElementById('nome-jogador').value;
-
+        const playerName = document.getElementById('nome-jogador').value;
         window.location.href = `index.php?nome=${encodeURIComponent(playerName)}`;
     }
 </script>
