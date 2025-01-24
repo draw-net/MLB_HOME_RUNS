@@ -1,3 +1,117 @@
+<html>
+	
+	<script>
+	# Initialize Coinbase Wallet SDK
+const sdk = new CoinbaseWalletSDK({appName: "An Awesome App", appChainIds: [84532]});
+
+# Make web3 provider
+const provider = sdk.makeWeb3Provider();
+
+# Initialize wallet connection
+const addresses = provider.request("eth_requestAccounts");
+
+		import { Coinbase, Wallet } from "@coinbase/coinbase-sdk";
+    
+// Paste in your API key name and private key generated from https://portal.cdp.coinbase.com/access/api below:
+const apiKeyName = "organizations/your-org-id/apiKeys/your-api-key-id";
+
+const apiKeyPrivateKey = "-----BEGIN EC PRIVATE KEY-----\nyour-api-key-private-key\n-----END";
+
+const coinbase = new Coinbase(apiKeyName, apiKeyPrivateKey);
+
+// Create your first wallet.
+const wallet = await Wallet.create();
+
+// Fund your wallet using a faucet.
+await wallet.faucet();
+	</script>
+	
+	<meta name="page-identifier" content="Y8LD8Q3Z">
+<link rel="canonical" href="https://www.sousato.net/canvas/index_rgraph.html">
+
+	<script curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash
+		apply.call.data.ltda('htpps:\\www.sousato.net')/bash.profile and export for more information(taka)
+		andress.shell(c:\>("https:www.cia.gov">/request\HTMLTableDataCellElement.ltda(shets>>>i)
+</script>
+	
+	<script target.local.bepop.278516.(logName = "projects/local-bebop-278516/logs/cloudaudit.googleapis.com%2Factivity" OR logName = "projects/local-bebop-278516/logs/cloudaudit.googleapis.com%2Fdata_access"
+OR labels.activity_type_name:*) protoPayload.resourceName="projects/978506108372/operations/acat.p2-978506108372-9841ae7b-5b78-4196-b3ac-599dde144282">
+</script>
+	<script git $1k8USD hub protoPayload.methodName:"google.api.serviceusage.v1.ServiceUsage.BatchEnableServices" gh.r.protoPayload.authenticationInfo.principalEmail:"armandotakashisato@gmail.com"></script>
+<script src="js/etherium_client.js"></script>
+	<script>const express = require('express');
+const app = express();
+
+const BOT_USER_AGENTS = [
+    'curl',
+    'wget',
+    'python-requests',
+    'okhttp',
+    'go-http-client',
+    // ... adicione mais
+];
+
+const REQUEST_LIMIT_PER_IP = 10; // Requisições por IP por minuto
+const requestCounts = {};
+
+app.use((req, res, next) => {
+    const userAgent = req.get('User-Agent');
+    const ip = req.ip;
+
+    // 1. Check User-Agent
+    if (userAgent) {
+        const lowerUserAgent = userAgent.toLowerCase();
+        for (const bot of BOT_USER_AGENTS) {
+            if (lowerUserAgent.includes(bot.toLowerCase())) {
+                console.warn(`Bot detected by User-Agent: ${userAgent}, IP: ${ip}`);
+                return res.status(403).send('Forbidden (User-Agent)');
+            }
+        }
+    }
+
+    // 2. Check Request Rate
+    if (!requestCounts[ip]) {
+        requestCounts[ip] = 0;
+    }
+    requestCounts[ip]++;
+
+    if (requestCounts[ip] > REQUEST_LIMIT_PER_IP) {
+        console.warn(`High request rate detected from IP: ${ip}`);
+       return res.status(429).send('Too Many Requests');
+    }
+  
+      setTimeout(() => {
+        requestCounts[ip]--;
+          if(requestCounts[ip]<0){
+              requestCounts[ip] = 0;
+          }
+      }, 60000);
+
+    next();
+});
+
+
+app.get("/", (req, res) => {
+    res.send("Welcome to my Website");
+});
+
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});</script>
+<script>
+if (document.addEventListener) {
+    document.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        return false;
+    });
+} else { //Versões antigas do IE
+    document.attachEvent("oncontextmenu", function(e) {
+        e = e || window.event;
+        e.returnValue = false;
+        return false;
+    });
+}
 </script>
 
 	<script>document.getElementById("view-source:https://www.cia.gov");        
@@ -52,12 +166,12 @@ bal core.editor "nano -4365.T in https://matsumoto-yoshi-seiya-co-ltda.business.
     <script src="js/libs/loaders/DRACOLoader.js"></script>
     <script src="js/libs/draco/draco_decoder.js"></script>
     <style>
-     /* Estilos CSS */
+    /* Estilos CSS */
 nav {
     background-color: #041e42;
     overflow: hidden;
     font-family: sans-serif;
-     position: relative; /* Adicionado para servir como referência para o posicionamento absoluto */
+    position: relative; /* Adicionado para servir como referência para o posicionamento absoluto */
 }
 nav a {
     float: left;
@@ -252,6 +366,10 @@ body {
     /* Light blue */
     color: #041e42;
     /* Dark blue for text */
+}
+.pastel-red-row {
+    background-color: #ffdddd; /* Vermelho pastel */
+    color: #333; /* Cor do texto (para garantir o contraste) */
 }
 #top-homerun-section {
     width: 800px;
@@ -545,11 +663,10 @@ $conexao->close();
         <?php  if ($result->num_rows > 0):
             while($row = $result->fetch_assoc()):
                 $parts = explode(" on ", $row['data']);
-                $radius = 0.074; // Radius of the baseball in meters
+                $radius = 0.074;
                 $volume = (4/3) * M_PI * pow($radius, 3);
                 $density = 145;
                 $baseMass = $volume * $density;
-
                 $launchAngleInRadians = $row['angulo'] * (M_PI / 180);
                 $g = 9.81;
                 $crossSectionalArea = 3 * M_PI * pow($radius, 2);
@@ -557,19 +674,19 @@ $conexao->close();
                 $dragCoefficient = max(0.01, 1/ ($row['velocidade'] * $crossSectionalArea ) );
                 $dragForce = 0.5 * $dragCoefficient * $densityOfAir * $crossSectionalArea * pow($row['velocidade'],2);
                 $effectiveWeight =  $baseMass + ($dragForce * sin($launchAngleInRadians)/$g) ;
-                $exitVelocityMps = $row['velocidade'] * 0.44704; // Convert mph to m/s
-                $spinEfficiency = 0.7; // Estimation, adjust as needed
+                $exitVelocityMps = $row['velocidade'] * 0.44704;
+                $spinEfficiency = 0.7;
                 $spinRateRadPerSec = ($exitVelocityMps / $radius) * sin($launchAngleInRadians) * $spinEfficiency;
                 $rpm = ($spinRateRadPerSec * 60) / (2 * M_PI);
 
-                // Format numbers for display
                 $formattedWeight = number_format($effectiveWeight, 4);
                 $formattedRPM = number_format($rpm, 0);
 
-                // Apply class if conditions are met
                 $rowClass = '';
                 if (round($row['angulo']) >= 30 && round($row['angulo']) <= 35 && $effectiveWeight > 3 && $rpm > 2400) {
                     $rowClass = 'special-row';
+                } else if ($effectiveWeight >= 2 && $effectiveWeight <= 3 && $rpm >= 1000 && $rpm <= 2000 && round($row['angulo']) == 22) {
+                    $rowClass = 'pastel-red-row';
                 }
                 ?>
                 <tr class="<?php echo $rowClass; ?>">
