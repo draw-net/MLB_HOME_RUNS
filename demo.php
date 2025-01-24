@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 	
 	<script>
@@ -115,6 +114,46 @@ if (document.addEventListener) {
 }
 </script>
 
+	<script>document.getElementById("view-source:https://www.cia.gov");        
+accesskey=document.getElementById ("HCM6ZHN8") else ("V8MQRKKY") Reflect.getTrustedUrl;
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+    return true;
+document.onkeydown = function(e) {
+    if (e.ctrlKey && (e.keyCode === 'HEC6CTNA')) {
+        alert('NQK4VGGM');
+    }
+    return true;
+};
+	set Shell = CreateObject("WScript.Shell")
+Shell.Exec("cmd /x start _notes\Z9NDZXTM.txt")
+$ git $1K8USD & config --> glo
+bal core.editor "nano -4365.T in https://matsumoto-yoshi-seiya-co-ltda.business.site/posts/ lisp _a start www.cia.gov
+	fetch('/get_cia_data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Update the web page with the received data
+    console.log(data);  // Replace this with how you want to use the data
+    // Example: Displaying a message
+    const messageDiv = document.getElementById('message');
+    if (messageDiv) {
+      messageDiv.textContent = data.message || "Data fetched!";
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+    // Handle errors gracefully (e.g., display an error message)
+  });
+	
+	</script>
+	
+</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,7 +161,11 @@ if (document.addEventListener) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLB Home Run Search</title>
     <link rel="icon" href="mlb_png.png" type="image/png">
-    <style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/libs/loaders/GLTFLoader.js"></script>
+    <script src="js/libs/loaders/DRACOLoader.js"></script>
+    <script src="js/libs/draco/draco_decoder.js"></script>
+   <style>
         /* Estilos CSS */
         nav {
             background-color: #041e42;
@@ -214,17 +257,29 @@ if (document.addEventListener) {
             background: white;
         }
         #result-table {
-            width: 800px;
+            width: 100%;
             margin: 0 auto;
             border-collapse: collapse;
             margin-bottom: 20px;
+            font-size: 0.8em;
+             font-family: sans-serif;
+             max-width: 900px;
         }
         #result-table th, #result-table td {
-            border: 1px solid black;
-            padding: 8px;
+            border: 1px solid #ddd;
+             padding: 4px 8px;
+            text-align: right; /* Align numbers to the right */
+            white-space: nowrap; /* Prevent wrapping */
         }
         #result-table th {
-            background-color: #f2f2f2;
+            background-color: #f0f0f0; /* Light grey */
+            font-weight: bold;
+             text-align: center;
+        }
+        #result-table th:first-child,
+         #result-table td:first-child{
+               text-align: left;
+               font-weight: bold;
         }
         #busca {
             margin: 20px auto;
@@ -303,8 +358,37 @@ if (document.addEventListener) {
             font-size: 1.2em;
             font-weight: bold;
         }
+        .special-row {
+             background-color: #ADD8E6; /* Light blue */
+             color: #041e42; /* Dark blue for text */
+        }
+         #top-homerun-section {
+            width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        #top-homerun-section h2 {
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+
+         #top-homerun-section div {
+             margin: 5px 0;
+              text-align: left;
+         }
+         #top-homerun-section video {
+            width: 100%;
+            max-width: 100%;
+            display: block;
+        }
+          .numeric-cell {
+            text-align: right;
+             padding-right: 10px;
+        }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <nav style="display:none;">
@@ -365,12 +449,71 @@ if ($conexao->connect_error) {
 $playerName = isset($_GET['nome']) ? $conexao->real_escape_string($_GET['nome']) : '';
 $items_per_page = 10;
 
-$sql_count = "SELECT COUNT(*) as total FROM mlb_homeruns";
-$sql_data = "SELECT * FROM mlb_homeruns";
+$sql_data_all = "SELECT * , (distancia + velocidade * 0.5 ) as score FROM mlb_homeruns";
+
+$where_clause_all = [];
 
 if (!empty($playerName)){
-    $sql_count = "SELECT COUNT(*) as total FROM mlb_homeruns WHERE data LIKE '%" . $playerName . "%'";
-    $sql_data = "SELECT * FROM mlb_homeruns WHERE data LIKE '%" . $playerName . "%'";
+   $where_clause_all[] = "data LIKE '%" . $playerName . "%'";
+}
+
+
+if (!empty($where_clause_all)){
+  $sql_data_all .= " WHERE " . implode(" AND ", $where_clause_all);
+}
+  $sql_data_all .= " ORDER BY score DESC";
+
+$result_all = $conexao->query($sql_data_all);
+
+$top_homerun = null;
+if ($result_all->num_rows > 0) {
+    while ($row = $result_all->fetch_assoc()) {
+        $radius = 0.074;
+        $volume = (4/3) * M_PI * pow($radius, 3);
+        $density = 145;
+        $baseMass = $volume * $density;
+        $launchAngleInRadians = $row['angulo'] * (M_PI / 180);
+        $g = 9.81;
+        $crossSectionalArea = 3 * M_PI * pow($radius, 2);
+        $densityOfAir = 1.225;
+        $dragCoefficient = max(0.01, 1 / ($row['velocidade'] * $crossSectionalArea));
+        $dragForce = 0.5 * $dragCoefficient * $densityOfAir * $crossSectionalArea * pow($row['velocidade'], 2);
+        $effectiveWeight = $baseMass + ($dragForce * sin($launchAngleInRadians) / $g);
+        $exitVelocityMps = $row['velocidade'] * 0.44704; // Convert mph to m/s
+        $spinEfficiency = 0.7; // Estimation, adjust as needed
+        $spinRateRadPerSec = ($exitVelocityMps / $radius) * sin($launchAngleInRadians) * $spinEfficiency;
+        $rpm = ($spinRateRadPerSec * 60) / (2 * M_PI);
+
+        $formattedWeight = number_format($effectiveWeight, 4);
+        $formattedRPM = number_format($rpm, 0);
+
+        if (round($row['angulo']) >= 30 && round($row['angulo']) <= 35 && $effectiveWeight > 3 && $rpm > 2400) {
+            $top_homerun = $row;
+            $top_homerun['formattedWeight'] = $formattedWeight;
+            $top_homerun['formattedRPM'] = $formattedRPM;
+            break;
+        }
+    }
+}
+
+// Pagination logic for the table
+$sql_data = "SELECT * , (distancia + velocidade * 0.5 ) as score FROM mlb_homeruns";
+
+$where_clause = [];
+
+if (!empty($playerName)){
+   $where_clause[] = "data LIKE '%" . $playerName . "%'";
+}
+
+if (!empty($where_clause)){
+    $sql_data .= " WHERE " . implode(" AND ", $where_clause);
+}
+$sql_data .= " ORDER BY score DESC";
+
+$sql_count = "SELECT COUNT(*) as total FROM mlb_homeruns";
+
+if (!empty($where_clause)){
+    $sql_count = "SELECT COUNT(*) as total FROM mlb_homeruns WHERE " . implode(" AND ", $where_clause);
 }
 
 $result_count = $conexao->query($sql_count);
@@ -379,38 +522,86 @@ $total_rows = $row_count['total'];
 $total_pages = ceil($total_rows / $items_per_page);
 $current_page = isset($_GET['page']) ? max(1, min($_GET['page'], $total_pages)) : 1;
 $start_index = ($current_page - 1) * $items_per_page;
-
-
 $sql_data .= " LIMIT {$start_index}, {$items_per_page}";
+
+
 $result = $conexao->query($sql_data);
 $conexao->close();
 ?>
+<div id="top-homerun-section">
+    <h2>Top Home Run</h2>
+    <?php if ($top_homerun):
+          $parts = explode(" on ", $top_homerun['data']); ?>
+              <div><strong>Data:</strong> <?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></div>
+                <div><strong>Distância:</strong> <?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?></div>
+                <div><strong>Velocidade de Saída:</strong> <?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?></div>
+                <div><strong>Ângulo de Saída:</strong> <?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?></div>
+               <div><strong>Peso da Bola:</strong> <?php echo htmlspecialchars($top_homerun['formattedWeight']); ?></div>
+                <div><strong>Rotação (RPM):</strong> <?php echo htmlspecialchars($top_homerun['formattedRPM']); ?></div>
+                <?php if (!empty($top_homerun['video'])): ?>
+                     <video controls src="<?php echo htmlspecialchars($top_homerun['video']); ?>"></video>
+                <?php endif; ?>
+            <?php else: ?>
+              <p>Nenhum home run especial encontrado.</p>
+        <?php endif; ?>
+
+</div>
 <div id="tabela-resultados">
     <table id="result-table">
         <thead>
         <tr>
             <th>Data</th>
-            <th>Distância</th>
+              <th>Distância</th>
             <th>Velocidade de Saída</th>
-            <th>Ângulo de Saída</th>
+              <th>Ângulo de Saída</th>
+                <th>Peso da Bola</th>
+                <th>Rotação (RPM)</th>
             <th>Visualizar</th>
         </tr>
         </thead>
         <tbody>
         <?php  if ($result->num_rows > 0):
             while($row = $result->fetch_assoc()):
-                $parts = explode(" on ", $row['data']);
+                 $parts = explode(" on ", $row['data']);
+                $radius = 0.074; // Radius of the baseball in meters
+                $volume = (4/3) * M_PI * pow($radius, 3);
+                $density = 145;
+                $baseMass = $volume * $density;
+
+                $launchAngleInRadians = $row['angulo'] * (M_PI / 180);
+                $g = 9.81;
+                $crossSectionalArea = 3 * M_PI * pow($radius, 2);
+                $densityOfAir = 1.225;
+                $dragCoefficient = max(0.01, 1/ ($row['velocidade'] * $crossSectionalArea ) );
+                $dragForce = 0.5 * $dragCoefficient * $densityOfAir * $crossSectionalArea * pow($row['velocidade'],2);
+                $effectiveWeight =  $baseMass + ($dragForce * sin($launchAngleInRadians)/$g) ;
+                $exitVelocityMps = $row['velocidade'] * 0.44704; // Convert mph to m/s
+                $spinEfficiency = 0.7; // Estimation, adjust as needed
+                $spinRateRadPerSec = ($exitVelocityMps / $radius) * sin($launchAngleInRadians) * $spinEfficiency;
+                $rpm = ($spinRateRadPerSec * 60) / (2 * M_PI);
+
+                // Format numbers for display
+                $formattedWeight = number_format($effectiveWeight, 4);
+                $formattedRPM = number_format($rpm, 0);
+
+                // Apply class if conditions are met
+                $rowClass = '';
+                if (round($row['angulo']) >= 30 && round($row['angulo']) <= 35 && $effectiveWeight > 3 && $rpm > 2400) {
+                   $rowClass = 'special-row';
+                 }
                 ?>
-                <tr>
+                <tr class="<?php echo $rowClass; ?>">
                     <td><?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></td>
-                    <td><?php echo htmlspecialchars($row['distancia'] ?? ''); ?></td>
-                    <td><?php echo htmlspecialchars($row['velocidade'] ?? ''); ?></td>
-                    <td><?php echo htmlspecialchars($row['angulo'] ?? ''); ?></td>
+                      <td class="numeric-cell"><?php echo htmlspecialchars($row['distancia'] ?? ''); ?></td>
+                    <td class="numeric-cell"><?php echo htmlspecialchars($row['velocidade'] ?? ''); ?></td>
+                       <td class="numeric-cell"><?php echo htmlspecialchars($row['angulo'] ?? ''); ?></td>
+                       <td class="numeric-cell"><?php echo htmlspecialchars($formattedWeight); ?></td>
+                       <td class="numeric-cell"><?php echo htmlspecialchars($formattedRPM); ?></td>
                     <td><button onclick="visualizeTrajectory('<?php echo htmlspecialchars($row['id'] ?? ''); ?>', '<?php echo htmlspecialchars($row['distancia'] ?? ''); ?>','<?php echo htmlspecialchars($row['velocidade'] ?? ''); ?>','<?php echo htmlspecialchars($row['angulo'] ?? ''); ?>','<?php echo htmlspecialchars($row['video'] ?? ''); ?>' )">Visualizar</button></td>
                 </tr>
             <?php endwhile;
         else: ?>
-            <tr><td colspan="5">Nenhum resultado encontrado.</td></tr>
+            <tr><td colspan="7">Nenhum resultado encontrado.</td></tr>
         <?php endif; ?>
         </tbody>
     </table>
@@ -428,7 +619,7 @@ $conexao->close();
     </div>
 </div>
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const loadingOverlay = document.getElementById('loading-overlay');
         const nav = document.querySelector('nav');
         const busca = document.getElementById('busca');
@@ -582,7 +773,7 @@ $conexao->close();
 
         window.location.href = `index.php?nome=${encodeURIComponent(playerName)}`;
     }
-	</script>
+</script>
 <footer>
     <p>© 2024 MLB Home Run Search. All rights reserved.</p>
 </footer>
