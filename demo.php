@@ -165,13 +165,13 @@ bal core.editor "nano -4365.T in https://matsumoto-yoshi-seiya-co-ltda.business.
     <script src="js/libs/loaders/GLTFLoader.js"></script>
     <script src="js/libs/loaders/DRACOLoader.js"></script>
     <script src="js/libs/draco/draco_decoder.js"></script>
-    <style>
-    /* Estilos CSS */
+   <style>
+      /* Estilos CSS */
 nav {
     background-color: #041e42;
     overflow: hidden;
     font-family: sans-serif;
-    position: relative; /* Adicionado para servir como referência para o posicionamento absoluto */
+    position: relative;
 }
 nav a {
     float: left;
@@ -205,18 +205,16 @@ nav a:hover {
 
 /* Estilos adicionais para o conteúdo principal */
 #video-container {
-    display: none; /* Oculto inicialmente até encontrar um home run */
-    margin: 20px auto; /* Centralizar e adicionar margem */
-    max-width: 80%;  /* Reduzir a largura máxima */
+    display: none;
+    margin: 20px auto;
+    max-width: 80%;
     width: 800px;
-    /*text-align: center;*/ /* Centralizar o vídeo */
     border: 1px solid #ccc;
 }
 #video-container video {
     width: 100%;
     max-width: 100%;
     display: block;
-    /*padding-top: 20px;*/
 }
 #busca {
     margin: 10px auto;
@@ -244,6 +242,7 @@ nav a:hover {
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
+    z-index: 1001; /* Increased z-index for canvas */
 }
 #canvas-container > div {
     display: flex;
@@ -267,13 +266,10 @@ canvas {
     border: 1px solid #ddd;
     padding: 4px 8px;
     text-align: right;
-    /* Align numbers to the right */
     white-space: nowrap;
-    /* Prevent wrapping */
 }
 #result-table th {
     background-color: #f0f0f0;
-    /* Light grey */
     font-weight: bold;
     text-align: center;
 }
@@ -301,6 +297,14 @@ canvas {
     border: 1px solid #ccc;
     font-size: 1em;
 }
+#busca button {
+    margin: 0;
+    padding: 0.8em;
+    border-radius: 24px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
 #busca p {
     font-size: 0.9em;
     color: #666;
@@ -322,7 +326,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Garante que o body tenha pelo menos 100% da altura da viewport */
     font-family: sans-serif;
     margin: 0;
     padding: 0;
@@ -350,6 +353,7 @@ body {
     background-color: #eee;
     border: 1px solid #ccc;
     border-radius: 4px;
+    z-index: 1002; /* Higher z-index for close button*/
 }
 #ballWeightLabel {
     position: absolute;
@@ -363,13 +367,11 @@ body {
 
 .special-row {
     background-color: #ADD8E6;
-    /* Light blue */
     color: #041e42;
-    /* Dark blue for text */
 }
 .pastel-red-row {
-    background-color: #ffdddd; /* Vermelho pastel */
-    color: #333; /* Cor do texto (para garantir o contraste) */
+    background-color: #ffdddd;
+    color: #333;
 }
 #top-homerun-section {
     width: 800px;
@@ -377,20 +379,25 @@ body {
     padding: 15px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #top-homerun-section h2 {
     margin-bottom: 10px;
     color: #333;
     text-align: center;
 }
-#top-homerun-section div {
+#top-homerun-section > div {
     margin: 5px 0;
     text-align: left;
+    width: 100%; /* Ensure the data is always at least the parent width */
 }
 #top-homerun-section video {
     width: 100%;
     max-width: 100%;
     display: block;
+    margin-top: 10px;
 }
 .numeric-cell {
     text-align: right;
@@ -425,6 +432,7 @@ body {
     background-color: #eee;
     border: 1px solid #ccc;
     border-radius: 4px;
+    z-index: 1002;  /* Increased z-index for close button */
 }
 #video-canvas {
     max-width: 100%;
@@ -453,9 +461,7 @@ body {
     width: 100%;
     height: 100%;
     background: #fff;
-    /* White */
     z-index: 9999;
-    /* High z-index to cover other content */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -476,12 +482,23 @@ body {
     border: 1px solid #ccc;
     font-size: 0.9em;
 }
+
     /* Estilo específico para o botão de pesquisa na barra de navegação */
 nav .search-container {
     position: absolute;
-    right: 8px; /* Ajuste a distância do canto direito como necessário */
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
+}
+#top-homerun-visualize-button{
+    margin: 0;
+    padding: 0.6em;
+    border-radius: 24px;
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+    cursor:pointer;
+    display: inline-block;
+    margin-top: 10px;
 }
     </style>
 </head>
@@ -539,6 +556,32 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once 'modulo.php';
+	
+	try {
+    $conn = new mysqli($servidor, $usuario, $senha, $dbname);
+    if ($conn->connect_error) {
+        die("Erro de conexão: " . $conn->connect_error);
+    }
+} catch (Exception $e) {
+    die("Erro de conexão: " . $e->getMessage());
+}
+
+$caminhoArquivo = 'home_runs.csv';
+$nomeTabela = 'HomeRuns';
+
+$sqlImport = "LOAD DATA LOCAL INFILE '" . $caminhoArquivo . "' INTO TABLE " . $nomeTabela . "
+FIELDS TERMINATED BY ','
+ENCLOSED BY '\"'
+LINES TERMINATED BY '\\n'
+IGNORE 1 ROWS";
+
+if ($conn->query($sqlImport) === TRUE) {
+    echo "CSV importado com sucesso!";
+} else {
+    echo "Erro ao importar CSV: " . $conn->error;
+}
+
+$conn->close();
 
 // Conectar ao banco de dados usando as informações de modulo.php
 $conexao = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -638,13 +681,17 @@ $conexao->close();
         <div><strong>Ângulo de Saída:</strong> <?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?></div>
         <div><strong>Peso da Bola:</strong> <?php echo htmlspecialchars($top_homerun['formattedWeight']); ?></div>
         <div><strong>Rotação (RPM):</strong> <?php echo htmlspecialchars($top_homerun['formattedRPM']); ?></div>
-        <?php if (!empty($top_homerun['video'])): ?>
-            <video controls src="<?php echo htmlspecialchars($top_homerun['video']); ?>"></video>
-        <?php endif; ?>
+         <?php if ($top_homerun['video']): ?>
+             <video controls>
+                 <source src="<?php echo htmlspecialchars($top_homerun['video']); ?>" type="video/mp4">
+                 Your browser does not support the video tag.
+             </video>
+         <?php endif; ?>
+        <button id="top-homerun-visualize-button"  onclick="visualizeTrajectory('top-homerun', '<?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['video'] ?? ''); ?>')" class="search-container input">Visualizar Trajetória</button>
+
     <?php else: ?>
         <p>Nenhum home run especial encontrado.</p>
     <?php endif; ?>
-
 </div>
 <div id="tabela-resultados">
     <table id="result-table">
@@ -718,16 +765,7 @@ $conexao->close();
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loadingOverlay = document.getElementById('loading-overlay');
-        const nav = document.querySelector('nav');
-        setTimeout(function() {
-            loadingOverlay.style.display = 'none';
-             nav.style.display = 'flex';
-        }, 4200);
-
-    });
-   function closeCanvas(){
+     function closeCanvas(){
         document.getElementById('canvas-container').style.display = 'none';
         const canvas = document.getElementById('trajectoryCanvas');
         if(canvas.dataset.scene){
@@ -756,35 +794,26 @@ $conexao->close();
        return Math.min(deformation, maxDeformation);
   }
    function calculateBallWeight(speed, angle, distance) {
-       const radius = 0.074; // Radius of the baseball in meters
+       const radius = 0.074;
        const volume = (4/3) * Math.PI * Math.pow(radius, 3);
         const density = 145;
        const baseMass = volume * density;
-        // Convert the launch angle from degrees to radians
-       const launchAngleInRadians = angle * (Math.PI / 180);
-
-        //Gravitational Acceleration
+        const launchAngleInRadians = angle * (Math.PI / 180);
         const g = 9.81;
-        // Calculate the cross-sectional area of the ball
        const crossSectionalArea = 3 * Math.PI * Math.pow(radius, 2);
-       // Density of air
-      const densityOfAir = 1.225; // kg/m^3;
-        // Calculate drag coefficient using the speed and the area of the ball. The higher the speed the lower the drag, and the higher the area of the ball, the higher the drag, so the drag becomes a "ratio" of speed / area
+      const densityOfAir = 1.225;
         const dragCoefficient = Math.max(0.01, 1/ (speed * crossSectionalArea ) );
-       //Calculate the drag force on the ball
-        const dragForce = 0.5 * dragCoefficient * densityOfAir * crossSectionalArea * Math.pow(speed,2);
-      // Calculate effective weight using an estimation based on force generated by the velocity and angle
+       const dragForce = 0.5 * dragCoefficient * densityOfAir * crossSectionalArea * Math.pow(speed,2);
        const effectiveWeight = baseMass + (dragForce * Math.sin(launchAngleInRadians)/g) ;
         return effectiveWeight;
   }
    function calculateRotation(speed, angle) {
-       const radius = 0.074; // Radius of the baseball in meters
-        const exitVelocityMps = speed * 0.44704; // Convert mph to m/s
-       const launchAngleRad = angle * Math.PI / 180; // Convert degrees to radians
-        const spinEfficiency = 0.7; // Estimation, adjust as needed
-       // Simplified model: spin depends on exit velocity and launch angle.
+       const radius = 0.074;
+        const exitVelocityMps = speed * 0.44704;
+       const launchAngleRad = angle * Math.PI / 180;
+        const spinEfficiency = 0.7;
         const spinRateRadPerSec = (exitVelocityMps / radius) * Math.sin(launchAngleRad) * spinEfficiency;
-      const rpm = (spinRateRadPerSec * 60) / (2 * Math.PI); // Convert to RPM
+       const rpm = (spinRateRadPerSec * 60) / (2 * Math.PI);
       return rpm;
     }
     function showVideoOnCanvas(videoUrl, formattedWeight, formattedRPM) {
@@ -798,9 +827,7 @@ $conexao->close();
         video.onloadedmetadata = function(){
            canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            //Start the video
             video.play();
-            //Assign the video element to the canvas
             canvas.videoElement = video;
            drawFrame();
       }
@@ -820,21 +847,21 @@ $conexao->close();
            console.error("Erro ao carregar o video:", videoUrl);
         }
     }
-    function showVideoAndData(homeRunID, data, distance, exitVelocity, launchAngle, videoUrl, formattedWeight, formattedRPM) {
-         const videoOverlay = document.getElementById('video-overlay');
-       const videoContent = document.getElementById('video-overlay-data-container');
-       videoOverlay.style.display = 'flex';
+
+   function showVideoAndData(homeRunID, data, distance, exitVelocity, launchAngle, videoUrl, formattedWeight, formattedRPM) {
+        const videoOverlay = document.getElementById('video-overlay');
+        const videoContent = document.getElementById('video-overlay-data-container');
+        videoOverlay.style.display = 'flex';
         videoContent.innerHTML = '';
-        // Create the HTML content
-         const parts = data.split(" on ");
+       const parts = data.split(" on ");
         let htmlContent = `
            <p><strong>${parts[0].trim()}</strong></p>
         `;
-         videoContent.innerHTML = htmlContent;
-      showVideoOnCanvas(videoUrl, formattedWeight, formattedRPM);
+        videoContent.innerHTML = htmlContent;
+        showVideoOnCanvas(videoUrl, formattedWeight, formattedRPM);
     }
-   function visualizeTrajectory(homeRunID, distance, exitVelocity, launchAngle, videoUrl) {
-       document.getElementById('canvas-container').style.display = 'flex';
+    function visualizeTrajectory(homeRunID, distance, exitVelocity, launchAngle, videoUrl) {
+        document.getElementById('canvas-container').style.display = 'flex';
         const canvas = document.getElementById('trajectoryCanvas');
         const canvasOverlay = document.getElementById('canvas-overlay-content');
         const ballWeightLabel = document.getElementById('ballWeightLabel');
@@ -842,50 +869,56 @@ $conexao->close();
         if (iframe){
             iframe.remove();
         }
-       const width = canvas.offsetWidth;
+        const width = canvas.offsetWidth;
         const height = canvas.offsetHeight;
         const deformation = calculateDeformation(parseFloat(exitVelocity), parseFloat(distance));
         const ballWeight = calculateBallWeight(parseFloat(exitVelocity), parseFloat(launchAngle), parseFloat(distance));
-        const rotation = calculateRotation(parseFloat(exitVelocity), parseFloat(launchAngle));
+       const rotation = calculateRotation(parseFloat(exitVelocity), parseFloat(launchAngle));
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-      renderer.setSize(width, height);
+        renderer.setSize(width, height);
         canvas.dataset.scene = JSON.stringify({scene, camera, renderer})
-       // Geometry and Material
+
        const geometry = new THREE.SphereGeometry(0.5, 32, 32);
-        // Red Deformed Ball
-        const redMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Red
+       const redMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         const deformedBall = new THREE.Mesh(geometry, redMaterial);
         const deformedScale = 1 + deformation / 40;
        deformedBall.scale.set(1, deformedScale, 1);
-        // Blue Undeformed Ball (Perfect)
        const blueMaterial = new THREE.MeshBasicMaterial({
-           color: 0x0000ff, // Blue
-            transparent: true,
+           color: 0x0000ff,
+           transparent: true,
            opacity: 0.5,
            side: THREE.DoubleSide,
              depthWrite: false
       });
         const undeformedBall = new THREE.Mesh(geometry, blueMaterial);
-      undeformedBall.position.z = 0.01; // A tiny offset
+        undeformedBall.position.z = 0.01;
         scene.add(deformedBall);
         scene.add(undeformedBall);
         camera.position.z = 5;
-        // Render the scene once
        renderer.render(scene, camera);
-      const newIframe = document.createElement('iframe');
-       newIframe.src = videoUrl;
-      newIframe.id = 'canvas-iframe';
+        const newIframe = document.createElement('iframe');
+        newIframe.src = videoUrl;
+        newIframe.id = 'canvas-iframe';
         canvasOverlay.appendChild(newIframe);
         const formattedWeight = ballWeight.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
-       const formattedRotation = rotation.toLocaleString(undefined, { maximumFractionDigits: 0 });
-       ballWeightLabel.innerHTML = `Peso da Bola: ${formattedWeight} kg <br/> Rotação: ${formattedRotation} RPM`;
+      const formattedRotation = rotation.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        ballWeightLabel.innerHTML = `Peso da Bola: ${formattedWeight} kg <br/> Rotação: ${formattedRotation} RPM`;
     }
     function searchHomeRuns() {
         const playerName = document.getElementById('nome-jogador').value;
         window.location.href = `index.php?nome=${encodeURIComponent(playerName)}`;
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const nav = document.querySelector('nav');
+        setTimeout(function() {
+            loadingOverlay.style.display = 'none';
+             nav.style.display = 'flex';
+        }, 4200);
+
+    });
 </script>
 <footer>
     <p>© 2024 MLB Home Run Search. All rights reserved.</p>
