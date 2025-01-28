@@ -1,187 +1,186 @@
 # MLB_HOME_RUNS
 Search Home Runs
 
-Resumo do Código
+Humanity's constant aspiration to consider its past, its culture and its technology makes us think that a starting point in this contest would be to answer the question what is the next home run and so we thought of creating a search button for MLB where we can find this question From Newton onwards, gravity is certainly the point where we all matter
 
-Este é um projeto web que visa exibir dados sobre home runs da MLB (Major League Baseball). Ele busca informações de um banco de dados MySQL e as apresenta de forma organizada, com algumas funcionalidades adicionais. Aqui está uma decomposição:
 
-Tecnologias e Componentes:
+-----------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
 
-HTML: A estrutura da página web, incluindo:
+Search Home Runs
 
-Navegação (com links para o site da MLB e uma barra de pesquisa)
+Code Summary
 
-Exibição de resultados de busca (tabela paginada)
+This is a web project that aims to display data about MLB (Major League Baseball) home runs. It fetches information from a MySQL database and presents it in an organized way, with some additional functionality. Here is a breakdown:
 
-Exibição de informações de um home run específico
+Technologies and Components:
 
-Integração com Three.js para visualizações 3D (não totalmente implementada)
+HTML: The structure of the web page, including:
 
-Um "overlay" (camada sobreposta) para mostrar vídeos e dados
+Navigation (with links to the MLB website and a search bar)
 
-CSS: Estilos para a aparência da página, incluindo layout, cores e responsividade para diferentes tamanhos de tela.
+Displaying search results (paged table)
 
-JavaScript: Lógica do lado do cliente, para:
+Displaying information about a specific home run
 
-Fazer buscas de home runs pelo nome do jogador
+Integration with Three.js for 3D visualizations (not fully implemented)
 
-Exibir vídeos e dados em um modal
+An "overlay" to display videos and data
 
-Criar visualização da trajetória da bola (com Three.js)
+CSS: Styles for the appearance of the page, including layout, colors, and responsiveness to different screen sizes.
 
-Interações com o usuário (por exemplo, fechar overlays)
+JavaScript: Client-side logic to:
 
-Um script de "loading" que desaparece em 4.2s
+Search for home runs by player name
 
-PHP: Lógica do lado do servidor para:
+Display videos and data in a modal
 
-Conectar ao banco de dados MySQL
+Create a visualization of the ball's trajectory (with Three.js)
 
-Consultar dados dos home runs (com paginação)
+User interactions (e.g. closing overlays)
 
-Retornar os dados para a página web (como tabelas e informações para visualização)
+A "loading" script that disappears in 4.2s
 
-Realizar cálculos como peso da bola e rotação (baseado em dados físicos)
+PHP: Server-side logic to:
 
-Selecionar um home run "top" baseado em critérios predefinidos
+Connect to MySQL database
 
-Banco de Dados MySQL: Armazena os dados dos home runs (jogador, distância, velocidade, ângulo, vídeo, etc.).
+Query home run data (with pagination)
 
-Funcionalidades Principais:
+Return data to web page (as tables and visualization information)
 
-Busca por Nome de Jogador: O usuário pode buscar home runs por nome de jogador usando um campo de texto.
+Perform calculations such as ball weight and spin (based on physics data)
 
-Exibição de Resultados: Os home runs correspondentes são exibidos em uma tabela paginada.
+Select a "top" home run based on predefined criteria
 
-Visualização de Dados:
+MySQL Database: Stores home run data (player, distance, speed, angle, video, etc.)
 
-Os dados de cada home run são exibidos em uma tabela com informações como nome do jogador, distância, velocidade, ângulo, peso da bola e rotação.
+Main Features:
 
-Um vídeo relacionado ao home run pode ser exibido em um modal (overlay).
+Search by Player Name: The user can search for home runs by player name using a text field.
 
-Existe uma visualização da trajetória da bola em 3D (utilizando Three.js).
+Results Display: The corresponding home runs are displayed in a paginated table.
 
-Cálculos Físicos: O sistema calcula o peso da bola e a rotação (RPM) usando fórmulas físicas.
+Data Visualization:
 
-Destaque de Home Run Especial: O sistema identifica e destaca o "top" home run baseado em critérios específicos (ângulo de saída, peso da bola, rotação).
+The data for each home run is displayed in a table with information such as player name, distance, speed, angle, ball weight, and spin.
 
-Loading Tela de loading com logo e uma mensagem.
+A video related to the home run can be displayed in a modal (overlay).
 
-Capitalização/Expansão do Projeto
+There is a 3D visualization of the ball's trajectory (using Three.js).
 
-Aqui estão algumas ideias sobre como esse projeto poderia ser expandido e/ou transformado em algo mais robusto:
+Physical Calculations: The system calculates the ball weight and spin (RPM) using physics formulas.
 
-Melhorias na Visualização 3D:
+Special Home Run Highlight: The system identifies and highlights the "top" home run based on specific criteria (exit angle, ball weight, spin).
 
-Renderização de um modelo 3D de um estádio da MLB.
+Loading Loading screen with logo and message.
 
-Cálculos mais precisos da trajetória (incluindo a resistência do ar e o efeito Magnus).
+Project Capitalization/Expansion
 
-Animação do vôo da bola.
+Here are some ideas on how this project could be expanded and/or made more robust:
 
-Controles interativos da visualização.
+3D Visualization Improvements:
 
-Integração com Dados da MLB:
+Rendering a 3D model of an MLB stadium.
 
-Usar a API oficial da MLB para obter dados mais completos e atualizados, como stats de jogadores, detalhes da partida e vídeos de alta qualidade.
+More accurate trajectory calculations (including air resistance and the Magnus effect).
 
-Permitir que os usuários procurem por jogos ou equipes específicas.
+Ball flight animation.
 
-Implementar filtros mais avançados (por data, por estádio, etc.).
+Interactive visualization controls.
 
-Sistema de Pontuação/Ranking:
+MLB Data Integration:
 
-Criar um algoritmo de pontuação que considere vários fatores (distância, velocidade, ângulo, tipo de lançamento, etc.).
+Use the official MLB API to get more complete and up-to-date data, such as player stats, game details, and high-quality videos.
 
-Gerar rankings dos melhores home runs.
+Allow users to search for specific games or teams.
 
-Autenticação e Criação de Conteúdo:
+Implement more advanced filters (by date, by stadium, etc.).
 
-Permitir que os usuários se registrem.
+Scoring/Ranking System:
 
-Permitir que os usuários adicionem informações sobre home runs que não estão no banco de dados.
+Create a scoring algorithm that considers multiple factors (distance, speed, angle, type of launch, etc.).
 
-Personalização:
+Generate rankings of the best home runs.
 
-Permitir que os usuários salvem suas buscas e vídeos favoritos.
+Authentication and Content Creation:
 
-Oferecer temas de cores e outros tipos de personalização.
+Allow users to register.
 
-Monetização:
+Allow users to add information about home runs that are not in the database.
 
-Anúncios: Exibir anúncios relevantes para a audiência de beisebol.
+Personalization:
 
-Afiliados: Linkar para lojas de produtos de beisebol (camisetas, bonés, etc.).
+Allow users to save their searches and favorite videos.
 
-Assinaturas: Oferecer funcionalidades premium (visualizações em 3D de alta qualidade, dados históricos mais detalhados, etc.) para usuários pagantes.
+Offer color themes and other types of customization.
 
-Venda de Dados: Criar uma API para que outras empresas possam utilizar os dados de home runs.
+Monetization:
 
-Observações Adicionais:
+Ads: Display ads relevant to the baseball audience.
 
-Segurança: O código deve ser revisado para garantir que não há vulnerabilidades de segurança (SQL injection, XSS, etc.).
+Affiliates: Link to baseball merchandise stores (jerseys, hats, etc.).
 
-Desempenho: Otimizar as consultas no banco de dados e o código JavaScript para garantir uma boa experiência do usuário.
+Subscriptions: Offer premium features (high-quality 3D visualizations, more detailed historical data, etc.) to paying users.
 
-Testes: Criar testes unitários e testes de integração para garantir a qualidade do projeto.
+Data Sales: Create an API so that other companies can use the home run data.
 
-Responsividade: Garantir que a interface seja adequada para uma variedade de tamanhos de tela (computadores, tablets e smartphones).
+Additional Notes:
 
-Conclusão:
+Security: Code should be reviewed to ensure there are no security vulnerabilities (SQL injection, XSS, etc.).
 
-Este é um projeto promissor que combina dados, visualização e elementos interativos. Ele tem um bom potencial para se tornar uma ferramenta interessante para fãs de beisebol. As ideias de "capitalização" mostradas acima são uma direção para transformar este projeto em algo mais do que um simples exemplo de código.
+Performance: Optimize database queries and JavaScript code to ensure a good user experience.
 
-Se precisar de mais informações ou ajuda específica com alguma parte do projeto, é só perguntar!
+Testing: Create unit tests and integration tests to ensure the quality of the project.
 
-Instale o Node.js e npm: Faça a instalação corretamente e adicione-os ao PATH.
+Responsiveness: Ensure the interface is responsive to a variety of screen sizes (desktops, tablets, and smartphones).
 
-Instale o CMake: Instale o cmake no seu sistema e verifique a versão.
+Conclusion:
 
-Instale as Dependências: Navegue até a pasta do server.js e execute o comando npm install express fluent-ffmpeg node-fetch opencv4nodejs
+This is a promising project that combines data, visualization, and interactive elements. It has good potential to become an interesting tool for baseball fans. The "capitalization" ideas shown above are a direction to turn this project into something more than just a code example.
 
-Instale as dependências do python: Execute pip install requests beautifulsoup4 mysql-connector-python.
+If you need more information or specific help with any part of the project,
+-------------------------------------------------------------------------------------------------------------pt--
 
-Execute server.js: Execute node server.js para iniciar o servidor Node.js.
+Install Node.js and npm: Install correctly and add them to your PATH.
 
-Execute code.py: Execute o script Python para popular a tabela jogadores_mlb (se você precisar usá-la).
+Install CMake: Install cmake on your system and check the version.
 
-Acesse a página: Acesse o seu site pelo navegador e tente fazer a busca, e verifique se o erro desapareceu.
+Install Dependencies: Navigate to the server.js folder and run the command npm install express fluent-ffmpeg node-fetch opencv4nodejs
 
--------------------------------------------------------------------------------------------------------------------------------------------
-**verificar a porta 3001 - instalação do etherium.js
+Install Python dependencies: Run pip install requests beautifulsoup4 mysql-connector-python.
 
-Use o comando netstat para verificar as portas:
+Run server.js: Run node server.js to start the Node.js server.
 
-O comando netstat exibe as conexões de rede (TCP/UDP) do seu sistema, incluindo quais portas estão sendo usadas.
+Run code.py: Run the Python script to populate the mlb_players table (if you need to use it).
 
-Execute o comando abaixo para verificar as portas TCP/IP que estão em uso no seu sistema e filtre para exibir as conexões da porta 3001:
+Access the page: Access your site through your browser and try to search, and check if the error goes away.
 
-netstat -ano | findstr :3001
-Use code with caution.
-Bat
-netstat -ano: Lista todas as conexões ativas e as portas "ouvindo" do sistema.
+**check port 3001 - etherium.js installation
 
-| findstr :3001: Filtra a saída do netstat para exibir apenas as linhas que contenham a porta 3001.
+Use the netstat command to check ports:
 
-Você deverá ver o processo do seu nodejs (caso ele esteja rodando) utilizando essa porta.
+The netstat command displays the network connections (TCP/UDP) on your system, including which ports are being used.
 
----------------------------------------------------------------------------------------------------------------------------------------------
-Verifique o git e o cmake: Garanta que eles estão instalados e no PATH.
+Run the command below to check the TCP/IP ports that are in use on your system and filter to display connections for port 3001:
 
-Limpe o cache: Execute npm cache clean --force
+netstat -ano | findstr :3001 Use code with caution. Bat netstat -ano: Lists all active connections and "listening" ports on the system.
 
-Remova node_modules: Remova manualmente a pasta node_modules.
+| findstr :3001: Filters the netstat output to display only lines that contain port 3001.
 
-Instale a versão especifica do pacote Execute npm install opencv4nodejs@5.6.0 e veja se a instalação funciona.
+You should see your nodejs process (if it is running) using this port.
 
-Reinstale as dependências: Tente executar o comando npm install express fluent-ffmpeg node-fetch opencv4nodejs
+Check git and cmake: Make sure they are installed and in your PATH.
 
-Teste isoladamente: Execute o install.js manualmente na pasta opencv4nodejs.
+Clear the cache: Run npm cache clean --force
 
-Compartilhe os logs: Se o erro persistir, compartilhe os resultados dos passos acima e os logs de instalação.
------------------------------------------------------------------------------------------------------------------------------------------------
-pip install beautifulsoup4 instala a biblioteca BeautifulSoup4.
+Remove node_modules: Manually remove the node_modules folder.
 
-Para executar comandos do DOS no Python, use o módulo subprocess.
+Install the specific version of the package. Run npm install opencv4nodejs@5.6.0 and see if the installation works.
 
-O BeautifulSoup4 é usado para analisar HTML e XML, mas não para exibir comandos do DOS.
+Reinstall the dependencies: Try running the command npm install express fluent-ffmpeg node-fetch opencv4nodejs
+
+Test in isolation: Run install.js manually in the opencv4nodejs folder.
+
+Share the logs: If the error persists, share the results of the above steps and the installation logs.
+pip install beautifulsoup4 installs the BeautifulSoup4 library.
