@@ -4,8 +4,7 @@ Search Home Runs
 Humanity's constant aspiration to consider its past, its culture and its technology makes us think that a starting point in this contest would be to answer the question what is the next home run and so we thought of creating a search button for MLB where we can find this question From Newton onwards, gravity is certainly the point where we all matter
 
 
------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Search Home Runs
 
@@ -140,7 +139,7 @@ Conclusion:
 This is a promising project that combines data, visualization, and interactive elements. It has good potential to become an interesting tool for baseball fans. The "capitalization" ideas shown above are a direction to turn this project into something more than just a code example.
 
 If you need more information or specific help with any part of the project,
--------------------------------------------------------------------------------------------------------------pt--
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Install Node.js and npm: Install correctly and add them to your PATH.
 
