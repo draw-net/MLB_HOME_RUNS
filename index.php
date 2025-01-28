@@ -516,8 +516,8 @@ nav .search-container {
     <a href="https://www.mlb.com/TEAMS">TEAMS</a>
     <a href="https://www.sousatonet/mlb/index.php">HOME RUN</a>
     <div class="search-container">
-        <input type="text" id="nome-jogador" placeholder="Nome do Jogador">
-        <button onclick="searchHomeRuns()">Buscar</button>
+        <input type="text" id="nome-jogador" placeholder="Search Player's Name">
+        <button onclick="searchHomeRuns()">Search</button>
    </div>
 </nav>
 
@@ -546,7 +546,7 @@ nav .search-container {
 <div id="message"></div>
 <div id="loading-overlay" >
     <img id="mlb-logo" src="mlb_png.png" alt="MLB Logo">
-    <p style="font-size: 2em; color: #333; margin-top: 10px;">Em breve...</p>
+    <p style="font-size: 2em; color: #333; margin-top: 10px;">Coming Soon...</p>
 </div>
 <script src="js/etherium_client.js"></script>
 <?php
@@ -556,32 +556,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once 'modulo.php';
-	
-	try {
-    $conn = new mysqli($servidor, $usuario, $senha, $dbname);
-    if ($conn->connect_error) {
-        die("Erro de conexão: " . $conn->connect_error);
-    }
-} catch (Exception $e) {
-    die("Erro de conexão: " . $e->getMessage());
-}
-
-$caminhoArquivo = 'home_runs.csv';
-$nomeTabela = 'HomeRuns';
-
-$sqlImport = "LOAD DATA LOCAL INFILE '" . $caminhoArquivo . "' INTO TABLE " . $nomeTabela . "
-FIELDS TERMINATED BY ','
-ENCLOSED BY '\"'
-LINES TERMINATED BY '\\n'
-IGNORE 1 ROWS";
-
-if ($conn->query($sqlImport) === TRUE) {
-    echo "CSV importado com sucesso!";
-} else {
-    echo "Erro ao importar CSV: " . $conn->error;
-}
-
-$conn->close();
 
 // Conectar ao banco de dados usando as informações de modulo.php
 $conexao = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -675,35 +649,35 @@ $conexao->close();
     <h2>Top Home Run</h2>
     <?php if ($top_homerun):
         $parts = explode(" on ", $top_homerun['data']); ?>
-        <div><strong>Data:</strong> <?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></div>
-        <div><strong>Distância:</strong> <?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?></div>
-        <div><strong>Velocidade de Saída:</strong> <?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?></div>
-        <div><strong>Ângulo de Saída:</strong> <?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?></div>
-        <div><strong>Peso da Bola:</strong> <?php echo htmlspecialchars($top_homerun['formattedWeight']); ?></div>
-        <div><strong>Rotação (RPM):</strong> <?php echo htmlspecialchars($top_homerun['formattedRPM']); ?></div>
+        <div><strong>Name:</strong> <?php echo htmlspecialchars(trim($parts[0] ?? '')); ?></div>
+        <div><strong>Distance:</strong> <?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?></div>
+        <div><strong>Output Speed:</strong> <?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?></div>
+        <div><strong>Exit Angle:</strong> <?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?></div>
+        <div><strong>Ball Weight:</strong> <?php echo htmlspecialchars($top_homerun['formattedWeight']); ?></div>
+        <div><strong>Rotation (RPM):</strong> <?php echo htmlspecialchars($top_homerun['formattedRPM']); ?></div>
          <?php if ($top_homerun['video']): ?>
              <video controls>
                  <source src="<?php echo htmlspecialchars($top_homerun['video']); ?>" type="video/mp4">
                  Your browser does not support the video tag.
              </video>
-         <?php endif; ?>
-        <button id="top-homerun-visualize-button"  onclick="visualizeTrajectory('top-homerun', '<?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['video'] ?? ''); ?>')" class="search-container input">Visualizar Trajetória</button>
+       <?php endif; ?>
+         <center> <button id="top-homerun-visualize-button"  onclick="visualizeTrajectory('top-homerun', '<?php echo htmlspecialchars($top_homerun['distancia'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['velocidade'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['angulo'] ?? ''); ?>', '<?php echo htmlspecialchars($top_homerun['video'] ?? ''); ?>')" class="search-container input">View Ansyc Video</button></center>
 
     <?php else: ?>
-        <p>Nenhum home run especial encontrado.</p>
+        <p>No special home runs found.</p>
     <?php endif; ?>
 </div>
 <div id="tabela-resultados">
     <table id="result-table">
         <thead>
         <tr>
-            <th>Data</th>
-            <th>Distância</th>
-            <th>Velocidade de Saída</th>
-             <th>Ângulo de Saída</th>
-            <th>Peso da Bola</th>
-             <th>Rotação (RPM)</th>
-            <th>Visualizar</th>
+            <th>Name</th>
+            <th>Distance</th>
+            <th>Output Speed</th>
+             <th>Exit Angle</th>
+            <th>Ball Weight</th>
+             <th>Rotation (RPM)</th>
+            <th>Video</th>
         </tr>
         </thead>
         <tbody>
@@ -743,7 +717,7 @@ $conexao->close();
                     <td class="numeric-cell"><?php echo htmlspecialchars($row['angulo'] ?? ''); ?></td>
                     <td class="numeric-cell"><?php echo htmlspecialchars($formattedWeight); ?></td>
                      <td class="numeric-cell"><?php echo htmlspecialchars($formattedRPM); ?></td>
-                    <td><button onclick="showVideoAndData('<?php echo htmlspecialchars($row['id'] ?? ''); ?>', '<?php echo htmlspecialchars($row['data'] ?? ''); ?>','<?php echo htmlspecialchars($row['distancia'] ?? ''); ?>','<?php echo htmlspecialchars($row['velocidade'] ?? ''); ?>','<?php echo htmlspecialchars($row['angulo'] ?? ''); ?>','<?php echo htmlspecialchars($row['video'] ?? ''); ?>','<?php echo htmlspecialchars($formattedWeight); ?>','<?php echo htmlspecialchars($formattedRPM); ?>')">Visualizar</button></td>
+                    <td><center><button onclick="showVideoAndData('<?php echo htmlspecialchars($row['id'] ?? ''); ?>', '<?php echo htmlspecialchars($row['data'] ?? ''); ?>','<?php echo htmlspecialchars($row['distancia'] ?? ''); ?>','<?php echo htmlspecialchars($row['velocidade'] ?? ''); ?>','<?php echo htmlspecialchars($row['angulo'] ?? ''); ?>','<?php echo htmlspecialchars($row['video'] ?? ''); ?>','<?php echo htmlspecialchars($formattedWeight); ?>','<?php echo htmlspecialchars($formattedRPM); ?>')">View</button></td></center>
                 </tr>
             <?php endwhile;
         else: ?>
